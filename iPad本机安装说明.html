@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>星芽岛 iPad 本机安装步骤</title>
+<style>
+body{max-width:780px;margin:auto;padding:28px 20px 60px;background:#faf3e2;color:#6d451f;font:17px/1.75 system-ui,-apple-system,"PingFang SC",sans-serif}
+h1,h2{line-height:1.3}.card{margin:18px 0;padding:18px 20px;border-radius:20px;background:#fffdf7;box-shadow:0 10px 25px rgba(80,50,20,.08)}
+code{display:inline-block;padding:3px 8px;border-radius:8px;background:#eee5d5;color:#4e7e47;font-weight:700}
+.warn{color:#b35f35;font-weight:700}
+</style>
+</head>
+<body>
+<h1>星芽岛 iPad 本机免认证版</h1>
+<div class="card">
+<h2>不需要云网站</h2>
+<p>这个版本使用 iPad 本机的 <strong>a-Shell mini</strong> 临时启动网页，再安装到主屏幕。无需域名、实名认证或电脑长期在线。</p>
+</div>
+<div class="card">
+<h2>第一次安装</h2>
+<ol>
+<li>App Store 安装免费的 <strong>a-Shell mini</strong>。</li>
+<li>在“文件”App 中解压本 ZIP。</li>
+<li>打开 a-Shell mini，输入 <code>pickFolder</code>，选择解压后的文件夹。</li>
+<li>输入 <code>python3 server.py</code>。</li>
+<li>让 a-Shell 与 Safari 分屏显示。</li>
+<li>Safari 打开 <code>http://127.0.0.1:8765/index.html</code>。</li>
+<li>等待完整加载，点“分享”→“添加到主屏幕”。</li>
+<li>保持服务器运行，从主屏幕再打开一次星芽岛。</li>
+</ol>
+</div>
+<div class="card">
+<h2>以后使用</h2>
+<p>首次缓存完成后，通常能直接离线打开。若某次打不开，重新在 a-Shell 中运行 <code>python3 server.py</code>，再打开一次即可。</p>
+<p class="warn">不要清理 Safari 网站数据，否则任务和岛屿进度会丢失。</p>
+</div>
+</body>
+</html>
