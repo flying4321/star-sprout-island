@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f8f1df">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="星芽岛">
+  <title>星芽岛</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/icon-180.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app-shell" id="app">
+<header class="topbar">
+      <div>
+        <h1 id="islandTitle">我的世界・自然小木屋岛</h1>
+        <p>当前建设：<strong id="buildCount">0</strong> / <span id="buildMax">60</span></p>
+      </div>
+      <div class="daily-light" aria-label="今日星光进度">
+        <span>今日星光</span>
+        <strong id="dailyLight">0 / 4</strong>
+      </div>
+    </header>
+
+<section class="workspace">
+      <aside class="task-panel" aria-label="今日任务">
+        <div class="task-panel-title">
+          <span class="leaf">◆</span>
+          <h2>今日任务</h2>
+          <span class="leaf">◆</span>
+        </div>
+        <div id="taskList" class="task-list"></div>
+
+      </aside>
+
+      <section class="island-column">
+        <div class="island-stage" id="islandStage">
+          <div class="scene-world" id="sceneWorld" aria-label="从零开始建设的自然小木屋岛">
+            <img class="scene-base" src="assets/island-base-zero.jpg" alt="等待建设的空白小岛">
+            <img class="construction-layer mascot-layer" id="mascotLayer" src="assets/layer-mascot.png" alt="">
+            <img class="construction-layer path-layer" id="pathLayer" src="assets/layer-path.png" alt="">
+            <img class="construction-layer forest-layer" id="forestLayer" src="assets/layer-forest.png" alt="">
+            <img class="construction-layer library-layer" id="libraryLayer" src="assets/layer-library.png" alt="">
+            <img class="construction-layer cottage-layer" id="cottageLayer" src="assets/layer-cottage.png" alt="">
+            <img class="construction-layer slide-layer" id="slideLayer" src="assets/layer-slide.png" alt="">
+            <img class="final-scene" id="finalScene" src="assets/nature-island-scene.jpg" alt="建设完成的自然小木屋岛">
+          </div>
+
+          <div class="robot-world" id="robotWorld" aria-label="机器人基地岛">
+            <img class="scene-base" src="assets/robot-island-base.jpg" alt="等待建设的机器人基地岛">
+            <img class="construction-layer robot-path-layer" id="robotPathLayer" src="assets/robot-layer-path.png" alt="">
+            <img class="construction-layer robot-solar-layer" id="robotSolarLayer" src="assets/robot-layer-solar.png" alt="">
+            <img class="construction-layer robot-gears-layer" id="robotGearsLayer" src="assets/robot-layer-gears.png" alt="">
+            <img class="construction-layer robot-lab-layer" id="robotLabLayer" src="assets/robot-layer-lab.png" alt="">
+            <img class="construction-layer robot-tower-layer" id="robotTowerLayer" src="assets/robot-layer-tower.png" alt="">
+            <img class="final-scene" id="robotFinalScene" src="assets/robot-island-complete.jpg" alt="建设完成的机器人基地岛">
+          </div>
+
+          <div class="ocean-world" id="oceanWorld" aria-label="海底邮局岛">
+            <img class="scene-base" src="assets/ocean-island-base.jpg" alt="等待建设的海底邮局岛">
+            <img class="construction-layer ocean-path-layer" id="oceanPathLayer" src="assets/ocean-layer-path.png" alt="">
+            <img class="construction-layer ocean-coral-layer" id="oceanCoralLayer" src="assets/ocean-layer-coral.png" alt="">
+            <img class="construction-layer ocean-delivery-layer" id="oceanDeliveryLayer" src="assets/ocean-layer-delivery.png" alt="">
+            <img class="construction-layer ocean-postoffice-layer" id="oceanPostOfficeLayer" src="assets/ocean-layer-postoffice.png" alt="">
+            <img class="construction-layer ocean-bubbles-layer" id="oceanBubblesLayer" src="assets/ocean-layer-bubbles.png" alt="">
+            <img class="final-scene" id="oceanFinalScene" src="assets/ocean-island-complete.jpg" alt="建设完成的海底邮局岛">
+          </div>
+          <div id="growthLayer" class="growth-layer" aria-hidden="true"></div>
+          <div class="build-stage-badge" id="buildStageBadge">
+            <span id="buildStageIcon">🌱</span>
+            <strong id="buildStageName">荒地起步</strong>
+          </div>
+
+          <button class="scene-hotspot library-hotspot" data-place="树洞图书馆" aria-label="查看树洞图书馆"></button>
+          <button class="scene-hotspot cottage-hotspot" data-place="自然小木屋" aria-label="查看自然小木屋"></button>
+          <button class="scene-hotspot slide-hotspot" data-place="彩虹滑梯" aria-label="查看彩虹滑梯"></button>
+
+          <div class="scene-tip" id="sceneTip">完成今日任务，让小岛一点点成长</div>
+        </div>
+
+        <nav class="bottom-nav" aria-label="主导航">
+          <button class="nav-button" id="mapBtn" type="button">
+            <span class="nav-icon">🗺️</span>
+            <span>岛屿地图</span>
+          </button>
+          <button class="nav-button" id="logBtn" type="button">
+            <span class="nav-icon">✨</span>
+            <span>建设记录</span>
+          </button>
+          <button class="nav-button" id="parentBtn" type="button" aria-label="长按两秒进入家长设置">
+            <span class="nav-icon">👨‍👩‍👧</span>
+            <span>家长设置</span>
+          </button>
+        </nav>
+      </section>
+    </section>
+  </main>
+
+  <div class="modal-backdrop" id="modalBackdrop" hidden></div>
+
+  <section class="modal task-modal" id="taskModal" role="dialog" aria-modal="true" aria-labelledby="taskModalTitle" hidden>
+    <button class="modal-close" data-close-modal aria-label="关闭">×</button>
+    <div class="modal-hero-icon" id="taskModalIcon">📋</div>
+    <p class="eyebrow">今日任务</p>
+    <h2 id="taskModalTitle">任务名称</h2>
+    <p id="taskModalDescription" class="modal-description"></p>
+    <div class="task-progress-large">
+      <span id="taskModalProgress">0 / 1</span>
+      <div class="progress-track"><span id="taskModalProgressBar"></span></div>
+    </div>
+    <button class="primary-button" id="completeTaskBtn" type="button">我完成啦</button>
+  </section>
+
+  <section class="modal wide-modal" id="mapModal" role="dialog" aria-modal="true" aria-labelledby="mapModalTitle" hidden>
+    <button class="modal-close" data-close-modal aria-label="关闭">×</button>
+    <p class="eyebrow">星芽群岛</p>
+    <h2 id="mapModalTitle">岛屿地图</h2>
+    <div class="island-map-grid">
+      <button class="island-card current" id="natureIslandCard" data-island="nature" type="button">
+        <div class="island-card-art">🏡</div>
+        <h3>自然小木屋岛</h3>
+        <p id="natureIslandDescription">当前建设中的成长世界</p>
+        <span id="natureIslandStatus">建设中</span>
+      </button>
+      <button class="island-card locked" id="robotIslandCard" data-island="robot" type="button">
+        <div class="island-card-art">🤖</div>
+        <h3>机器人基地岛</h3>
+        <p id="robotIslandDescription">完成自然小木屋岛后解锁</p>
+        <span id="robotIslandStatus">尚未解锁</span>
+      </button>
+      <button class="island-card locked" id="oceanIslandCard" data-island="ocean" type="button" disabled>
+        <div class="island-card-art">🐚</div>
+        <h3>海底邮局岛</h3>
+        <p id="oceanIslandDescription">完成机器人基地岛后解锁</p>
+        <span id="oceanIslandStatus">尚未解锁</span>
+      </button>
+    </div>
+  </section>
+
+  <section class="modal wide-modal" id="logModal" role="dialog" aria-modal="true" aria-labelledby="logModalTitle" hidden>
+    <button class="modal-close" data-close-modal aria-label="关闭">×</button>
+    <p class="eyebrow">每一点努力都会留下来</p>
+    <h2 id="logModalTitle">建设记录</h2>
+    <div id="logList" class="log-list"></div>
+  </section>
+
+  <section class="modal parent-modal" id="parentModal" role="dialog" aria-modal="true" aria-labelledby="parentModalTitle" hidden>
+    <button class="modal-close" data-close-modal aria-label="关闭">×</button>
+    <p class="eyebrow">家长区域</p>
+    <h2 id="parentModalTitle">任务设置</h2>
+
+    <form id="taskForm" class="task-form">
+      <label>
+        任务名称
+        <input id="taskTitleInput" maxlength="18" placeholder="例如：阅读 15 分钟" required>
+      </label>
+      <label>
+        鼓励说明
+        <input id="taskSubtitleInput" maxlength="28" placeholder="例如：让故事树长出新叶">
+      </label>
+      <div class="form-row">
+        <label>
+          图标
+          <select id="taskIconInput">
+            <option>📚</option>
+            <option>🧮</option>
+            <option>🔤</option>
+            <option>🎒</option>
+            <option>💧</option>
+            <option>🪵</option>
+            <option>🎁</option>
+            <option>⭐</option>
+          </select>
+        </label>
+        <label>
+          目标次数
+          <input id="taskTargetInput" type="number" min="1" max="10" value="1">
+        </label>
+        <label>
+          任务类型
+          <select id="taskKindInput">
+            <option value="fixed">固定任务</option>
+            <option value="temporary">临时任务</option>
+          </select>
+        </label>
+      </div>
+      <button class="primary-button compact" type="submit">添加任务</button>
+    </form>
+
+    <div class="parent-task-list" id="parentTaskList"></div>
+
+    <div class="parent-actions">
+      <button class="secondary-button" id="resetTodayBtn" type="button">重置今日进度</button>
+      <button class="danger-button" id="restoreDefaultBtn" type="button">清除全部进度</button>
+    </div>
+  </section>
+
+  <div class="celebration" id="celebration" aria-hidden="true">
+    <span>✨</span><span>🌟</span><span>🍃</span><span>🌼</span><span>✨</span>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
