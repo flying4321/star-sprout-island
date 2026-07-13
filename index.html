@@ -69,6 +69,17 @@
             <img class="construction-layer ocean-bubbles-layer" id="oceanBubblesLayer" src="assets/ocean-layer-bubbles.png" alt="">
             <img class="final-scene" id="oceanFinalScene" src="assets/ocean-island-complete.jpg" alt="建设完成的海底邮局岛">
           </div>
+
+          <div class="coconut-world" id="coconutWorld" aria-label="椰子岛">
+            <img class="scene-base" src="assets/coconut-island-base.jpg" alt="等待建设的椰子岛海面">
+            <img class="construction-layer coconut-island-layer" id="coconutIslandLayer" src="assets/coconut-layer-island.png" alt="">
+            <img class="construction-layer coconut-animals-layer" id="coconutAnimalsLayer" src="assets/coconut-layer-animals.png" alt="">
+            <img class="construction-layer coconut-trunk-layer" id="coconutTrunkLayer" src="assets/coconut-layer-trunk.png" alt="">
+            <img class="construction-layer coconut-leaves-layer" id="coconutLeavesLayer" src="assets/coconut-layer-leaves.png" alt="">
+            <img class="construction-layer coconut-fruit-layer" id="coconutFruitLayer" src="assets/coconut-layer-fruit.png" alt="">
+            <img class="construction-layer coconut-grove-layer" id="coconutGroveLayer" src="assets/coconut-layer-grove.png" alt="">
+            <img class="final-scene" id="coconutFinalScene" src="assets/coconut-island-complete.jpg" alt="建设完成的椰子岛">
+          </div>
           <div id="growthLayer" class="growth-layer" aria-hidden="true"></div>
           <div class="build-stage-badge" id="buildStageBadge">
             <span id="buildStageIcon">🌱</span>
@@ -138,6 +149,12 @@
         <p id="oceanIslandDescription">完成机器人基地岛后解锁</p>
         <span id="oceanIslandStatus">尚未解锁</span>
       </button>
+      <button class="island-card locked" id="coconutIslandCard" data-island="coconut" type="button" disabled>
+        <div class="island-card-art">🥥</div>
+        <h3>椰子岛</h3>
+        <p id="coconutIslandDescription">完成海底邮局岛后解锁</p>
+        <span id="coconutIslandStatus">尚未解锁</span>
+      </button>
     </div>
   </section>
 
@@ -178,7 +195,7 @@
         </label>
         <label>
           目标次数
-          <input id="taskTargetInput" type="number" min="1" max="10" value="1">
+          <input id="taskTargetInput" type="number" min="1" max="99" value="1" inputmode="numeric">
         </label>
         <label>
           任务类型

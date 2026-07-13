@@ -1466,3 +1466,53 @@ body {
     pointer-events: none;
   }
 }
+
+
+/* v1.1 — 第四座岛：椰子岛；保持原页面布局不变 */
+.coconut-world {
+  position: absolute;
+  inset: 0;
+  display: none;
+  overflow: hidden;
+}
+
+.island-stage.coconut-island .scene-world,
+.island-stage.coconut-island .robot-world,
+.island-stage.coconut-island .ocean-world,
+.island-stage.coconut-island .scene-hotspot {
+  display: none;
+}
+
+.island-stage.coconut-island .coconut-world {
+  display: block;
+}
+
+.island-stage.robot-island .coconut-world,
+.island-stage.ocean-island .coconut-world {
+  display: none;
+}
+
+.coconut-island-layer,
+.coconut-animals-layer,
+.coconut-trunk-layer,
+.coconut-leaves-layer,
+.coconut-fruit-layer,
+.coconut-grove-layer {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.coconut-trunk-layer,
+.coconut-leaves-layer,
+.coconut-fruit-layer,
+.coconut-grove-layer {
+  filter: drop-shadow(0 7px 7px rgba(71, 66, 25, .12));
+}
+
+/* iPad 触控：减少按钮双击缩放和点击延迟，不改变布局 */
+button,
+input,
+select {
+  touch-action: manipulation;
+}

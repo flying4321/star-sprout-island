@@ -1,4 +1,4 @@
-const CACHE_NAME = "star-sprout-ipad-production-v1";
+const CACHE_NAME = "star-sprout-ipad-production-v1-1-1";
 const APP_ASSETS = [
   "./",
   "./index.html",
@@ -29,7 +29,15 @@ const APP_ASSETS = [
   "./assets/robot-layer-lab.png",
   "./assets/robot-layer-path.png",
   "./assets/robot-layer-solar.png",
-  "./assets/robot-layer-tower.png"
+  "./assets/robot-layer-tower.png",
+  "./assets/coconut-island-base.jpg",
+  "./assets/coconut-layer-island.png",
+  "./assets/coconut-layer-animals.png",
+  "./assets/coconut-layer-trunk.png",
+  "./assets/coconut-layer-leaves.png",
+  "./assets/coconut-layer-fruit.png",
+  "./assets/coconut-layer-grove.png",
+  "./assets/coconut-island-complete.jpg"
 ];
 
 self.addEventListener("install", event => {
@@ -55,6 +63,21 @@ self.addEventListener("activate", event => {
 self.addEventListener("fetch", event => {
   if (event.request.method !== "GET") return;
 
+  if (event.request.mode === "navigate") {
+    event.respondWith(
+      fetch(event.request)
+        .then(response => {
+          if (response && response.ok) {
+            const copy = response.clone();
+            caches.open(CACHE_NAME).then(cache => cache.put("./index.html", copy));
+          }
+          return response;
+        })
+        .catch(() => caches.match("./index.html"))
+    );
+    return;
+  }
+
   event.respondWith(
     caches.match(event.request).then(cached => {
       const network = fetch(event.request)
@@ -65,7 +88,7 @@ self.addEventListener("fetch", event => {
           }
           return response;
         })
-        .catch(() => cached || caches.match("./index.html"));
+        .catch(() => cached);
 
       return cached || network;
     })
