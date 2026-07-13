@@ -1516,3 +1516,1254 @@ input,
 select {
   touch-action: manipulation;
 }
+
+
+/* v1.2.1 第五座雨林岛。原有前四岛选择器和样式未改动。 */
+.rainforest-editor { display: none; }
+
+body.rainforest-mode {
+  overflow: hidden;
+  background: linear-gradient(145deg, #e6f5db, #d7f0eb);
+}
+
+body.rainforest-mode .app-shell {
+  width: 100%;
+  max-width: none;
+  height: 100dvh;
+  display: block;
+  padding: max(8px, env(safe-area-inset-top))
+           max(8px, env(safe-area-inset-right))
+           max(8px, env(safe-area-inset-bottom))
+           max(8px, env(safe-area-inset-left));
+}
+
+body.rainforest-mode .app-shell > .topbar,
+body.rainforest-mode .app-shell > .workspace {
+  display: none !important;
+}
+
+body.rainforest-mode .rainforest-editor {
+  height: calc(100dvh - 16px);
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  overflow: hidden;
+  border-radius: 25px;
+  border: 2px solid rgba(106, 161, 67, .35);
+  background: #fffceb;
+  box-shadow: 0 18px 48px rgba(42, 83, 38, .18);
+}
+
+.rf-topbar {
+  min-height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 10px 18px;
+  background: linear-gradient(180deg, #fffdf2, #f5eec9);
+  border-bottom: 1px solid rgba(114, 157, 69, .2);
+}
+
+.rf-title-group {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  color: #3f7533;
+}
+
+.rf-title-leaf { font-size: 32px; }
+.rf-title-group h1 { margin: 0; font-size: clamp(21px, 2.2vw, 35px); }
+.rf-title-group p { margin: 3px 0 0; color: #7a8c61; font-size: 11px; }
+
+.rf-header-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+
+.rf-header-actions button {
+  min-height: 38px;
+  border: 0;
+  border-radius: 999px;
+  padding: 7px 12px;
+  color: #58723e;
+  background: rgba(255,255,255,.88);
+  box-shadow: 0 4px 12px rgba(65, 91, 43, .12);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.rf-header-actions button:disabled { opacity: .38; }
+.rf-header-actions .rf-save { color: white; background: linear-gradient(135deg,#7dc459,#54a546); }
+
+.rf-workspace {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: clamp(210px, 18vw, 280px) minmax(0, 1fr);
+  gap: 10px;
+  padding: 10px;
+  background: linear-gradient(180deg,#dff3dc,#cfebe2);
+}
+
+.rf-inspector {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  border-radius: 20px;
+  background: rgba(255,253,238,.97);
+  border: 1px solid rgba(107,158,70,.25);
+  box-shadow: 0 9px 24px rgba(46,80,39,.13);
+}
+
+.rf-inspector-title {
+  padding: 12px 15px;
+  color: white;
+  background: linear-gradient(135deg,#75ae4b,#55943c);
+  font-weight: 1000;
+}
+
+.rf-empty-selection {
+  margin: auto 0;
+  padding: 24px 17px;
+  text-align: center;
+  color: #5c6e49;
+}
+
+.rf-empty-selection > div { font-size: 48px; }
+.rf-empty-selection p { color: #899476; font-size: 12px; line-height: 1.55; }
+
+.rf-selection-details { padding: 13px; }
+
+.rf-selected-head {
+  display: grid;
+  grid-template-columns: 74px minmax(0,1fr);
+  gap: 11px;
+  align-items: center;
+}
+
+.rf-selected-thumb {
+  width: 74px;
+  height: 74px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 17px;
+  background: linear-gradient(145deg,#edf8d8,#daedc7);
+}
+.rf-selected-thumb img { width: 100%; height: 100%; object-fit: contain; }
+.rf-selected-thumb span { font-size: 42px; }
+.rf-selected-head h2 { margin:0; color:#345e2d; font-size:19px; }
+.rf-selected-head p { margin:4px 0 0; color:#84916e; font-size:11px; }
+
+.rf-properties {
+  margin: 13px 0;
+  padding: 4px 11px;
+  border-radius: 15px;
+  background: #f6f4df;
+}
+
+.rf-properties > div {
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  padding:8px 0;
+  border-bottom:1px solid rgba(113,145,75,.13);
+  font-size:12px;
+}
+.rf-properties > div:last-child { border-bottom:0; }
+.rf-properties dt { color:#73815f; font-weight:800; }
+.rf-properties dd { margin:0; color:#415b34; font-weight:1000; }
+
+.rf-description { min-height:42px; color:#6c795a; font-size:11px; line-height:1.5; }
+
+.rf-edit-grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:6px;
+}
+
+.rf-edit-grid button,
+.rf-inspector-footer button {
+  min-height:36px;
+  border:0;
+  border-radius:12px;
+  color:#55713c;
+  background:linear-gradient(145deg,#fff,#edf4db);
+  box-shadow:0 3px 9px rgba(67,91,47,.1);
+  font:inherit;
+  font-size:11px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.rf-edit-grid .rf-delete { color:#a04f42; background:linear-gradient(145deg,#fff,#ffe4de); }
+
+.rf-inspector-footer {
+  margin-top:auto;
+  display:grid;
+  gap:6px;
+  padding:11px 13px 13px;
+  text-align:center;
+}
+.rf-inspector-footer small { color:#899476; font-size:9px; }
+
+.rf-stage-column { min-width:0; min-height:0; display:grid; place-items:center; }
+.rf-stage {
+  position:relative;
+  width:100%;
+  max-height:100%;
+  aspect-ratio:1252/642;
+  overflow:hidden;
+  border-radius:22px;
+  border:2px solid rgba(56,151,180,.48);
+  background:#afe6ef;
+  box-shadow:0 11px 27px rgba(30,89,77,.18);
+  touch-action:none;
+  user-select:none;
+}
+
+.rf-stage-bg { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; pointer-events:none; }
+.rf-items-layer { position:absolute; inset:0; z-index:5; }
+
+.rf-build-item {
+  position:absolute;
+  display:grid;
+  place-items:center;
+  transform:translate(-50%,-50%) rotate(var(--item-rotation,0deg))
+    scale(calc(var(--item-scale,1)*var(--item-flip,1)),var(--item-scale,1));
+  transform-origin:center;
+  cursor:grab;
+  touch-action:none;
+  filter:hue-rotate(var(--item-hue,0deg)) drop-shadow(0 7px 7px rgba(25,51,22,.2));
+}
+
+.rf-build-item img {
+  display:block;
+  width:100%;
+  height:auto;
+  max-height:360px;
+  object-fit:contain;
+  pointer-events:none;
+  user-select:none;
+  -webkit-user-drag:none;
+}
+.rf-item-emoji { font-size:80px; line-height:1; }
+.rf-build-item.selected {
+  filter:hue-rotate(var(--item-hue,0deg)) drop-shadow(0 0 2px #fff) drop-shadow(0 0 8px #25b7f4)
+    drop-shadow(0 7px 7px rgba(25,51,22,.2));
+}
+.rf-build-item.selected::after {
+  content:"";
+  position:absolute;
+  inset:-8px;
+  border:2px dashed white;
+  border-radius:17px;
+  box-shadow:0 0 0 2px rgba(34,174,231,.9);
+  pointer-events:none;
+}
+.rf-item-river,.rf-item-soil { mix-blend-mode:multiply; }
+.rf-item-rain { mix-blend-mode:screen; }
+
+.rf-quick-tools {
+  position:absolute;
+  z-index:80;
+  display:flex;
+  gap:5px;
+  transform:translate(-50%,-50%);
+}
+.rf-quick-tools[hidden] { display:none; }
+.rf-quick-tools button {
+  width:37px;
+  height:37px;
+  display:grid;
+  place-items:center;
+  border:2px solid white;
+  border-radius:50%;
+  color:#3c7c49;
+  background:rgba(255,255,255,.96);
+  box-shadow:0 6px 15px rgba(40,75,39,.22);
+  font:inherit;
+  font-weight:1000;
+  cursor:pointer;
+}
+
+.rf-stage-tip {
+  position:absolute;
+  z-index:90;
+  left:50%;
+  bottom:11px;
+  transform:translateX(-50%);
+  padding:7px 14px;
+  border-radius:999px;
+  color:#4e7040;
+  background:rgba(255,255,255,.82);
+  box-shadow:0 5px 14px rgba(44,78,40,.13);
+  font-size:11px;
+  font-weight:900;
+  white-space:nowrap;
+  pointer-events:none;
+}
+
+.rf-library {
+  min-height:145px;
+  display:grid;
+  grid-template-columns:125px minmax(0,1fr);
+  gap:9px;
+  padding:8px 11px 11px;
+  background:linear-gradient(180deg,#fffbe8,#f5edc8);
+  border-top:1px solid rgba(123,157,76,.22);
+}
+
+.rf-library-label {
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:8px;
+  border-radius:17px;
+  background:rgba(255,255,255,.65);
+}
+.rf-library-label > span { font-size:38px; }
+.rf-library-label strong,.rf-library-label small { display:block; }
+.rf-library-label strong { color:#477438; font-size:16px; }
+.rf-library-label small { color:#8b8d6e; font-size:9px; }
+
+.rf-library-scroll { min-width:0; display:grid; grid-template-rows:auto auto; gap:6px; }
+.rf-category-row,.rf-variant-row {
+  min-width:0;
+  display:flex;
+  gap:6px;
+  overflow-x:auto;
+  overflow-y:hidden;
+  scrollbar-width:thin;
+  overscroll-behavior-x:contain;
+}
+
+.rf-category-button {
+  flex:0 0 86px;
+  min-height:52px;
+  display:grid;
+  grid-template-columns:29px 1fr auto;
+  align-items:center;
+  gap:3px;
+  padding:5px 7px;
+  border:2px solid transparent;
+  border-radius:14px;
+  color:#617446;
+  background:rgba(255,255,255,.78);
+  font:inherit;
+  cursor:pointer;
+}
+.rf-category-button.active { border-color:#68b34e; background:#f3ffdf; }
+.rf-category-button > span { font-size:23px; }
+.rf-category-button strong { font-size:10px; white-space:nowrap; }
+.rf-category-button small {
+  display:grid;
+  place-items:center;
+  min-width:18px;height:18px;
+  border-radius:999px;
+  color:white;background:#78af55;
+  font-size:8px;font-weight:900;
+}
+
+.rf-variant-row { min-height:65px; }
+.rf-variant-button {
+  flex:0 0 94px;
+  min-height:64px;
+  display:grid;
+  grid-template-rows:40px auto;
+  place-items:center;
+  gap:1px;
+  padding:4px 5px;
+  border:1px solid rgba(127,153,75,.2);
+  border-radius:13px;
+  color:#5f7046;
+  background:rgba(255,255,255,.76);
+  font:inherit;
+  cursor:pointer;
+}
+.rf-variant-button img { max-width:70px; max-height:40px; object-fit:contain; }
+.rf-variant-emoji { font-size:30px; }
+.rf-variant-button strong {
+  max-width:85px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  font-size:9px;
+}
+
+/* 仅电脑测试入口显示，不属于正式页面。 */
+.desktop-test-panel {
+  position:fixed;
+  right:12px;
+  bottom:12px;
+  z-index:1000;
+  width:310px;
+  border:2px solid rgba(72,122,181,.35);
+  border-radius:20px;
+  color:#314b63;
+  background:rgba(248,252,255,.97);
+  box-shadow:0 16px 38px rgba(34,57,79,.25);
+  backdrop-filter:blur(12px);
+}
+
+.dt-collapse {
+  position:absolute;
+  left:-43px;
+  top:14px;
+  width:38px;height:38px;
+  border:0;border-radius:14px;
+  background:#fff;
+  box-shadow:0 5px 14px rgba(38,65,93,.2);
+  font-size:20px;
+  cursor:pointer;
+}
+
+.dt-content { padding:13px; }
+.desktop-test-panel.collapsed { width:0; border:0; box-shadow:none; background:transparent; }
+.desktop-test-panel.collapsed .dt-content { display:none; }
+
+.dt-content header strong,.dt-content header small { display:block; }
+.dt-content header strong { font-size:17px; }
+.dt-content header small { margin-top:2px;color:#6f8799;font-size:10px; }
+
+.dt-field {
+  display:grid;
+  gap:5px;
+  margin-top:11px;
+  font-size:11px;
+  font-weight:900;
+}
+.dt-field select {
+  width:100%;
+  min-height:38px;
+  border:1px solid #bfd0df;
+  border-radius:11px;
+  padding:5px 9px;
+  background:white;
+  color:#344d62;
+  font:inherit;
+}
+
+.dt-progress-head {
+  display:flex;
+  justify-content:space-between;
+  margin-top:11px;
+  font-size:11px;
+}
+#dtProgress { width:100%; accent-color:#4b94d2; }
+
+.dt-stage-buttons {
+  display:flex;
+  flex-wrap:wrap;
+  gap:4px;
+}
+.dt-stage-buttons button {
+  flex:1 0 30px;
+  min-height:27px;
+  border:0;
+  border-radius:8px;
+  color:#3c6585;
+  background:#e7f2fb;
+  font-size:10px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.dt-actions {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:6px;
+  margin-top:11px;
+}
+.dt-actions button {
+  min-height:37px;
+  border:0;
+  border-radius:10px;
+  padding:5px 7px;
+  color:#386485;
+  background:linear-gradient(145deg,#fff,#dfedf8);
+  box-shadow:0 3px 8px rgba(48,78,101,.1);
+  font:inherit;
+  font-size:10px;
+  font-weight:900;
+  cursor:pointer;
+}
+.dt-actions button:first-child { grid-column:1/-1;color:white;background:linear-gradient(135deg,#579dd3,#397db8); }
+.dt-actions .dt-danger { grid-column:1/-1;color:#9d4d47;background:#ffe5e1; }
+.dt-note { margin:9px 0 0;color:#74899a;font-size:9px;line-height:1.45; }
+
+@media (max-width:1050px) {
+  .rf-title-group p { display:none; }
+  .rf-header-actions button { padding-inline:9px;font-size:10px; }
+  .rf-workspace { grid-template-columns:205px minmax(0,1fr); }
+  .rf-library { grid-template-columns:105px minmax(0,1fr); }
+}
+
+@media (orientation:portrait) {
+  body.rainforest-mode { overflow:auto; }
+  body.rainforest-mode .app-shell { height:auto; min-height:100dvh; }
+  body.rainforest-mode .rainforest-editor { height:auto; min-height:calc(100dvh - 16px);overflow:visible; }
+  .rf-topbar { align-items:flex-start; flex-direction:column; }
+  .rf-workspace { grid-template-columns:1fr; }
+  .rf-inspector { max-height:300px; }
+  .rf-stage { min-height:390px; }
+}
+
+
+/* v1.2.2：雨林岛内显示今日任务，初始画布为空。 */
+.rf-task-panel {
+  flex: 0 0 auto;
+  padding: 10px 10px 11px;
+  border-bottom: 1px solid rgba(110, 151, 72, .22);
+  background:
+    radial-gradient(circle at 20% 0%, rgba(231, 250, 210, .9), transparent 58%),
+    rgba(250, 252, 232, .94);
+}
+
+.rf-task-panel-title {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 3px 7px;
+  margin-bottom: 8px;
+  color: #4d793b;
+}
+
+.rf-task-panel-title span {
+  grid-row: 1 / span 2;
+  color: #70aa4b;
+}
+
+.rf-task-panel-title strong {
+  font-size: 14px;
+  line-height: 1.1;
+}
+
+.rf-task-panel-title small {
+  color: #879776;
+  font-size: 9px;
+}
+
+.rf-task-list {
+  display: grid;
+  gap: 6px;
+  max-height: 210px;
+  overflow-y: auto;
+  padding-right: 2px;
+  scrollbar-width: thin;
+}
+
+.rf-task-card {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 6px 8px;
+  border: 1px solid rgba(117, 153, 76, .16);
+  border-radius: 13px;
+  color: #4f6540;
+  background: rgba(255, 255, 255, .88);
+  box-shadow: 0 3px 9px rgba(67, 91, 47, .08);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.rf-task-card:active {
+  transform: translateY(1px);
+}
+
+.rf-task-card.completed {
+  background: linear-gradient(145deg, #f5ffe5, #eaf6d6);
+  border-color: rgba(100, 168, 70, .3);
+}
+
+.rf-task-icon {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 11px;
+  background: linear-gradient(145deg, #fff7c9, #ebf3c8);
+  font-size: 20px;
+}
+
+.rf-task-copy {
+  min-width: 0;
+  display: grid;
+  gap: 5px;
+}
+
+.rf-task-name {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.rf-task-name strong {
+  overflow: hidden;
+  color: #435c36;
+  font-size: 11px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rf-task-check {
+  flex: 0 0 auto;
+  color: #68aa4d;
+  font-size: 8px;
+}
+
+.rf-task-progress {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 6px;
+  color: #839173;
+  font-size: 9px;
+  font-weight: 800;
+}
+
+.rf-task-track {
+  height: 5px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #e3e9d3;
+}
+
+.rf-task-track > span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #8bc860, #58a94c);
+}
+
+.rf-task-empty {
+  padding: 12px 9px;
+  border-radius: 12px;
+  color: #849175;
+  background: rgba(255, 255, 255, .7);
+  font-size: 10px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+body.rainforest-mode .rf-inspector {
+  overflow-y: auto;
+}
+
+@media (max-height: 720px) and (orientation: landscape) {
+  .rf-task-list {
+    max-height: 145px;
+  }
+
+  .rf-task-card {
+    min-height: 42px;
+  }
+
+  .rf-task-icon {
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+  }
+}
+
+
+/* v1.2.4：任务奖励关联、素材锁定与雨林家长设置。 */
+.rf-header-actions #rfParentBtn.holding {
+  color: #fff;
+  background: linear-gradient(135deg, #e4a83f, #d5822d);
+  box-shadow: 0 0 0 4px rgba(235, 176, 72, .22);
+}
+
+.rf-task-reward {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  max-width: 100%;
+  padding: 2px 6px;
+  border-radius: 999px;
+  color: #5c7a45;
+  background: #edf7dc;
+  font-size: 8px;
+  font-weight: 900;
+}
+
+.rf-variant-button {
+  position: relative;
+}
+
+.rf-variant-button.locked {
+  opacity: .55;
+  filter: grayscale(.55);
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      rgba(243, 244, 226, .95),
+      rgba(243, 244, 226, .95) 7px,
+      rgba(232, 234, 214, .95) 7px,
+      rgba(232, 234, 214, .95) 14px
+    );
+}
+
+.rf-variant-button.locked img,
+.rf-variant-button.locked .rf-variant-emoji {
+  filter: grayscale(.75) blur(.2px);
+}
+
+.rf-lock-badge {
+  position: absolute;
+  inset: auto 3px 3px;
+  padding: 2px 4px;
+  overflow: hidden;
+  border-radius: 6px;
+  color: #765f3d;
+  background: rgba(255, 245, 205, .96);
+  font-size: 7px;
+  font-weight: 1000;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.parent-task-row.reward-enabled {
+  align-items: flex-start;
+}
+
+.parent-task-main {
+  min-width: 0;
+  display: grid;
+  gap: 3px;
+}
+
+.parent-reward-select {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 6px;
+  margin-top: 3px;
+  color: #7a866b;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.parent-reward-select select {
+  min-width: 0;
+  height: 30px;
+  padding: 2px 5px;
+  border: 1px solid rgba(105, 145, 75, .25);
+  border-radius: 8px;
+  color: #52653f;
+  background: #fbfff2;
+  font: inherit;
+  font-size: 10px;
+}
+
+.task-form .form-row {
+  align-items: end;
+}
+
+
+/* ================================================================
+   v1.2.5 — 雨林岛与前四座岛统一界面
+   左侧：原今日任务栏
+   中央：雨林自由建造画布
+   底部：岛屿地图、建设进度、家长设置
+   ================================================================ */
+
+.rainforest-world {
+  position: absolute;
+  inset: 0;
+  display: none;
+  overflow: hidden;
+  border-radius: inherit;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.island-stage.rainforest-island .scene-world,
+.island-stage.rainforest-island .robot-world,
+.island-stage.rainforest-island .ocean-world,
+.island-stage.rainforest-island .coconut-world,
+.island-stage.rainforest-island .scene-hotspot,
+.island-stage.rainforest-island .growth-layer {
+  display: none !important;
+}
+
+.island-stage.rainforest-island .rainforest-world {
+  display: block;
+}
+
+.island-stage:not(.rainforest-island) .rainforest-world {
+  display: none;
+}
+
+.rainforest-scene-base {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.rainforest-items-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 12;
+}
+
+.rf-world-item {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  transform:
+    translate(-50%, -50%)
+    rotate(var(--rf-rotation, 0deg))
+    scale(
+      calc(var(--rf-scale, 1) * var(--rf-flip, 1)),
+      var(--rf-scale, 1)
+    );
+  transform-origin: center;
+  cursor: grab;
+  touch-action: none;
+  filter:
+    hue-rotate(var(--rf-hue, 0deg))
+    drop-shadow(0 7px 7px rgba(25, 51, 22, .2));
+}
+
+.rf-world-item:active {
+  cursor: grabbing;
+}
+
+.rf-world-item img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 360px;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.rf-world-emoji {
+  display: block;
+  font-size: 80px;
+  line-height: 1;
+}
+
+.rf-world-item.selected {
+  filter:
+    hue-rotate(var(--rf-hue, 0deg))
+    drop-shadow(0 0 2px #fff)
+    drop-shadow(0 0 9px #25b7f4)
+    drop-shadow(0 7px 7px rgba(25, 51, 22, .2));
+}
+
+.rf-world-item.selected::after {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  border: 2px dashed #fff;
+  border-radius: 17px;
+  box-shadow: 0 0 0 2px rgba(34, 174, 231, .9);
+  pointer-events: none;
+}
+
+.rf-world-river,
+.rf-world-soil {
+  mix-blend-mode: multiply;
+}
+
+.rf-world-rain {
+  mix-blend-mode: screen;
+}
+
+.rainforest-stage-actions {
+  position: absolute;
+  z-index: 90;
+  right: 14px;
+  bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.rainforest-stage-actions button {
+  min-height: 39px;
+  border: 2px solid rgba(255, 255, 255, .9);
+  border-radius: 999px;
+  padding: 7px 12px;
+  color: #426b3d;
+  background: rgba(255, 255, 255, .92);
+  box-shadow: 0 7px 18px rgba(41, 78, 42, .2);
+  font: inherit;
+  font-size: 11px;
+  font-weight: 1000;
+  cursor: pointer;
+}
+
+.rainforest-stage-actions button:disabled {
+  opacity: .38;
+  cursor: default;
+}
+
+.rainforest-stage-actions .rf-library-primary {
+  color: #fff;
+  background: linear-gradient(135deg, #75bd51, #489943);
+}
+
+#rfUnlockedBadge {
+  margin-left: 4px;
+  padding: 2px 6px;
+  border-radius: 999px;
+  color: #4d763f;
+  background: rgba(255, 255, 255, .92);
+  font-size: 9px;
+}
+
+.rainforest-edit-toolbar {
+  position: absolute;
+  z-index: 95;
+  left: 50%;
+  top: 14px;
+  transform: translateX(-50%);
+  min-width: min(92%, 620px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 7px 10px;
+  border: 2px solid rgba(255, 255, 255, .9);
+  border-radius: 18px;
+  color: #47653d;
+  background: rgba(255, 253, 237, .94);
+  box-shadow: 0 8px 20px rgba(43, 76, 40, .19);
+}
+
+.rainforest-edit-toolbar[hidden] {
+  display: none;
+}
+
+.rainforest-edit-toolbar > strong {
+  max-width: 130px;
+  overflow: hidden;
+  font-size: 11px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rainforest-edit-actions {
+  display: flex;
+  gap: 5px;
+}
+
+.rainforest-edit-actions button {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  color: #477045;
+  background: #fff;
+  box-shadow: 0 4px 10px rgba(55, 83, 45, .14);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 1000;
+  cursor: pointer;
+}
+
+.rainforest-edit-actions .rf-toolbar-delete {
+  color: #a24f43;
+  background: #fff0eb;
+}
+
+.island-stage.rainforest-island .build-stage-badge {
+  background: rgba(246, 255, 232, .94);
+}
+
+.island-stage.rainforest-island .scene-tip {
+  max-width: 70%;
+}
+
+.rainforest-library-modal {
+  width: min(920px, calc(100vw - 32px));
+}
+
+.rf-library-summary {
+  display: grid;
+  grid-template-columns: auto auto minmax(160px, 1fr);
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0 14px;
+  padding: 10px 13px;
+  border-radius: 15px;
+  color: #567145;
+  background: #f4f9e7;
+}
+
+.rf-library-summary strong {
+  color: #386733;
+  font-size: 17px;
+}
+
+.rf-modal-category-row {
+  display: flex;
+  gap: 7px;
+  overflow-x: auto;
+  padding: 2px 2px 8px;
+  scrollbar-width: thin;
+}
+
+.rf-category-chip {
+  flex: 0 0 96px;
+  min-height: 55px;
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  align-items: center;
+  gap: 3px;
+  padding: 6px 8px;
+  border: 2px solid transparent;
+  border-radius: 14px;
+  color: #607347;
+  background: #f8f9e9;
+  font: inherit;
+  cursor: pointer;
+}
+
+.rf-category-chip.active {
+  border-color: #6eb551;
+  background: #efffdd;
+}
+
+.rf-category-chip > span {
+  grid-row: 1 / span 2;
+  font-size: 23px;
+}
+
+.rf-category-chip strong {
+  font-size: 10px;
+  white-space: nowrap;
+}
+
+.rf-category-chip small {
+  color: #81916e;
+  font-size: 9px;
+}
+
+.rf-modal-variant-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(115px, 1fr));
+  gap: 9px;
+  max-height: min(54vh, 460px);
+  overflow-y: auto;
+  padding: 4px 2px;
+}
+
+.rf-material-card {
+  position: relative;
+  min-height: 128px;
+  display: grid;
+  grid-template-rows: 78px auto auto;
+  place-items: center;
+  gap: 3px;
+  padding: 8px;
+  border: 2px solid transparent;
+  border-radius: 16px;
+  color: #596d43;
+  background: linear-gradient(145deg, #fff, #f2f7e5);
+  box-shadow: 0 5px 13px rgba(62, 88, 43, .1);
+  font: inherit;
+  cursor: pointer;
+}
+
+.rf-material-card:not(.locked):active {
+  transform: translateY(1px) scale(.99);
+}
+
+.rf-material-card.locked {
+  cursor: default;
+  opacity: .55;
+  filter: grayscale(.6);
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      #f1f1e3,
+      #f1f1e3 7px,
+      #e5e6d5 7px,
+      #e5e6d5 14px
+    );
+}
+
+.rf-material-picture {
+  width: 92px;
+  height: 76px;
+  display: grid;
+  place-items: center;
+}
+
+.rf-material-picture img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.rf-material-emoji {
+  font-size: 43px;
+}
+
+.rf-material-card strong {
+  max-width: 100%;
+  overflow: hidden;
+  font-size: 11px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rf-material-card small {
+  color: #859174;
+  font-size: 8px;
+}
+
+.rainforest-progress-modal {
+  width: min(820px, calc(100vw - 32px));
+}
+
+.rainforest-progress-hero {
+  margin: 10px 0 15px;
+  padding: 14px;
+  border-radius: 17px;
+  color: #587248;
+  background:
+    radial-gradient(circle at 85% 0%, rgba(215, 246, 188, .9), transparent 45%),
+    #f4f8e7;
+}
+
+.rainforest-progress-hero > div:first-child {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.rainforest-progress-hero strong {
+  color: #376c34;
+  font-size: 25px;
+}
+
+.rainforest-progress-hero p {
+  margin: 8px 0 0;
+  color: #78886a;
+  font-size: 11px;
+}
+
+.rainforest-category-progress {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 9px;
+  max-height: 48vh;
+  overflow-y: auto;
+}
+
+.rf-progress-card {
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+  border-radius: 14px;
+  background: #f8f8e9;
+}
+
+.rf-progress-icon {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: #eaf4d9;
+  font-size: 22px;
+}
+
+.rf-progress-card > div {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4px 6px;
+}
+
+.rf-progress-card strong {
+  color: #4c673d;
+  font-size: 11px;
+}
+
+.rf-progress-card > div > span {
+  color: #849174;
+  font-size: 9px;
+  font-weight: 900;
+}
+
+.rf-mini-progress {
+  grid-column: 1 / -1;
+  height: 5px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #e0e7d1;
+}
+
+.rf-mini-progress span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #8ac75f, #53a448);
+}
+
+.rainforest-progress-actions {
+  display: flex;
+  justify-content: center;
+  gap: 9px;
+  margin-top: 15px;
+}
+
+body.rainforest-mode .app-shell > .topbar,
+body.rainforest-mode .app-shell > .workspace {
+  display: initial !important;
+}
+
+@media (max-width: 850px) {
+  .rainforest-stage-actions {
+    right: 8px;
+    bottom: 8px;
+    gap: 4px;
+  }
+
+  .rainforest-stage-actions button {
+    min-height: 34px;
+    padding: 5px 8px;
+    font-size: 9px;
+  }
+
+  .rainforest-edit-toolbar {
+    min-width: 94%;
+    gap: 5px;
+  }
+
+  .rainforest-edit-toolbar > strong {
+    display: none;
+  }
+
+  .rainforest-edit-actions button {
+    width: 31px;
+    height: 31px;
+  }
+
+  .rainforest-category-progress {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

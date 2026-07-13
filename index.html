@@ -80,6 +80,34 @@
             <img class="construction-layer coconut-grove-layer" id="coconutGroveLayer" src="assets/coconut-layer-grove.png" alt="">
             <img class="final-scene" id="coconutFinalScene" src="assets/coconut-island-complete.jpg" alt="建设完成的椰子岛">
           </div>
+          <div class="rainforest-world" id="rainforestWorld" aria-label="雨林岛自由建造">
+            <img class="scene-base rainforest-scene-base" src="assets/rainforest-island-base.jpg" alt="等待自由建造的空白雨林岛">
+            <div class="rainforest-items-layer" id="rfItemsLayer"></div>
+
+            <div class="rainforest-edit-toolbar" id="rfSelectionToolbar" hidden>
+              <strong id="rfToolbarName">已选择素材</strong>
+              <div class="rainforest-edit-actions">
+                <button type="button" data-rf-action="grow" aria-label="放大">＋</button>
+                <button type="button" data-rf-action="shrink" aria-label="缩小">－</button>
+                <button type="button" data-rf-action="rotate-left" aria-label="向左旋转">↶</button>
+                <button type="button" data-rf-action="rotate-right" aria-label="向右旋转">↷</button>
+                <button type="button" data-rf-action="front" aria-label="向前一层">前</button>
+                <button type="button" data-rf-action="back" aria-label="向后一层">后</button>
+                <button type="button" data-rf-action="duplicate" aria-label="复制">⧉</button>
+                <button type="button" data-rf-action="delete" class="rf-toolbar-delete" aria-label="删除">🗑</button>
+              </div>
+            </div>
+
+            <div class="rainforest-stage-actions">
+              <button type="button" id="rfUndoBtn">↶ 撤销</button>
+              <button type="button" id="rfRedoBtn">↷ 恢复</button>
+              <button type="button" id="rfOpenLibraryBtn" class="rf-library-primary">
+                🌿 素材库
+                <span id="rfUnlockedBadge">12 / 80</span>
+              </button>
+              <button type="button" id="rfSaveBtn">💾 保存</button>
+            </div>
+          </div>
           <div id="growthLayer" class="growth-layer" aria-hidden="true"></div>
           <div class="build-stage-badge" id="buildStageBadge">
             <span id="buildStageIcon">🌱</span>
@@ -99,8 +127,8 @@
             <span>岛屿地图</span>
           </button>
           <button class="nav-button" id="logBtn" type="button">
-            <span class="nav-icon">✨</span>
-            <span>建设记录</span>
+            <span class="nav-icon" id="logBtnIcon">✨</span>
+            <span id="logBtnText">建设记录</span>
           </button>
           <button class="nav-button" id="parentBtn" type="button" aria-label="长按两秒进入家长设置">
             <span class="nav-icon">👨‍👩‍👧</span>
@@ -109,6 +137,9 @@
         </nav>
       </section>
     </section>
+
+
+
   </main>
 
   <div class="modal-backdrop" id="modalBackdrop" hidden></div>
@@ -155,6 +186,12 @@
         <p id="coconutIslandDescription">完成海底邮局岛后解锁</p>
         <span id="coconutIslandStatus">尚未解锁</span>
       </button>
+      <button class="island-card locked" id="rainforestIslandCard" data-island="rainforest" type="button" disabled>
+        <div class="island-card-art">🌧️</div>
+        <h3>雨林岛</h3>
+        <p id="rainforestIslandDescription">完成椰子岛后解锁</p>
+        <span id="rainforestIslandStatus">尚未解锁</span>
+      </button>
     </div>
   </section>
 
@@ -163,6 +200,43 @@
     <p class="eyebrow">每一点努力都会留下来</p>
     <h2 id="logModalTitle">建设记录</h2>
     <div id="logList" class="log-list"></div>
+  </section>
+
+  <section class="modal wide-modal rainforest-library-modal" id="rfLibraryModal" role="dialog" aria-modal="true" aria-labelledby="rfLibraryModalTitle" hidden>
+    <button class="modal-close" data-close-modal aria-label="关闭">×</button>
+    <p class="eyebrow">已解锁的素材可以无限重复使用</p>
+    <h2 id="rfLibraryModalTitle">雨林素材库</h2>
+
+    <div class="rf-library-summary">
+      <span>已解锁</span>
+      <strong id="rfLibraryUnlockedTotal">12 / 80</strong>
+      <div class="progress-track"><span id="rfLibraryProgressBar"></span></div>
+    </div>
+
+    <div class="rf-modal-category-row" id="rfCategoryRow"></div>
+    <div class="rf-modal-variant-grid" id="rfVariantRow"></div>
+  </section>
+
+  <section class="modal wide-modal rainforest-progress-modal" id="rainforestProgressModal" role="dialog" aria-modal="true" aria-labelledby="rainforestProgressTitle" hidden>
+    <button class="modal-close" data-close-modal aria-label="关闭">×</button>
+    <p class="eyebrow">完成任意任务都会随机解锁新素材</p>
+    <h2 id="rainforestProgressTitle">雨林建设进度</h2>
+
+    <div class="rainforest-progress-hero">
+      <div>
+        <span>素材总进度</span>
+        <strong id="rfProgressTotal">12 / 80</strong>
+      </div>
+      <div class="progress-track"><span id="rfProgressBar"></span></div>
+      <p id="rfProgressTip">每完成一次任务，从尚未解锁的素材中随机获得一个。</p>
+    </div>
+
+    <div class="rainforest-category-progress" id="rfCategoryProgress"></div>
+
+    <div class="rainforest-progress-actions">
+      <button class="primary-button compact" id="rfProgressOpenLibrary" type="button">打开素材库</button>
+      <button class="secondary-button" id="rfClearPlacedItems" type="button">清空已摆放素材</button>
+    </div>
   </section>
 
   <section class="modal parent-modal" id="parentModal" role="dialog" aria-modal="true" aria-labelledby="parentModalTitle" hidden>
@@ -223,5 +297,6 @@
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script src="app.js"></script>
+  <script src="rainforest.js"></script>
 </body>
 </html>

@@ -1,10 +1,19 @@
-const CACHE_NAME = "star-sprout-ipad-production-v1-1-1";
+const CACHE_NAME = "star-sprout-production-v1-2-6";
 const APP_ASSETS = [
   "./",
   "./index.html",
   "./styles.css",
   "./app.js",
+  "./rainforest.js",
   "./manifest.webmanifest",
+  "./assets/coconut-island-base.jpg",
+  "./assets/coconut-island-complete.jpg",
+  "./assets/coconut-layer-animals.png",
+  "./assets/coconut-layer-fruit.png",
+  "./assets/coconut-layer-grove.png",
+  "./assets/coconut-layer-island.png",
+  "./assets/coconut-layer-leaves.png",
+  "./assets/coconut-layer-trunk.png",
   "./assets/icon-180.png",
   "./assets/icon-192.png",
   "./assets/icon-512.png",
@@ -23,21 +32,36 @@ const APP_ASSETS = [
   "./assets/ocean-layer-delivery.png",
   "./assets/ocean-layer-path.png",
   "./assets/ocean-layer-postoffice.png",
+  "./assets/rainforest-island-base.jpg",
+  "./assets/rainforest-island-complete.jpg",
+  "./assets/rf-arapaima.png",
+  "./assets/rf-butterfly.png",
+  "./assets/rf-capybara.png",
+  "./assets/rf-dew.png",
+  "./assets/rf-frog-blue.png",
+  "./assets/rf-frog-green.png",
+  "./assets/rf-jaguar.png",
+  "./assets/rf-lily.png",
+  "./assets/rf-monkey.png",
+  "./assets/rf-parrot.png",
+  "./assets/rf-piranha.png",
+  "./assets/rf-plant.png",
+  "./assets/rf-rafflesia.png",
+  "./assets/rf-rain.png",
+  "./assets/rf-river.png",
+  "./assets/rf-sloth.png",
+  "./assets/rf-soil.png",
+  "./assets/rf-toucan.png",
+  "./assets/rf-tree-left.png",
+  "./assets/rf-tree-right.png",
+  "./assets/rf-vine.png",
   "./assets/robot-island-base.jpg",
   "./assets/robot-island-complete.jpg",
   "./assets/robot-layer-gears.png",
   "./assets/robot-layer-lab.png",
   "./assets/robot-layer-path.png",
   "./assets/robot-layer-solar.png",
-  "./assets/robot-layer-tower.png",
-  "./assets/coconut-island-base.jpg",
-  "./assets/coconut-layer-island.png",
-  "./assets/coconut-layer-animals.png",
-  "./assets/coconut-layer-trunk.png",
-  "./assets/coconut-layer-leaves.png",
-  "./assets/coconut-layer-fruit.png",
-  "./assets/coconut-layer-grove.png",
-  "./assets/coconut-island-complete.jpg"
+  "./assets/robot-layer-tower.png"
 ];
 
 self.addEventListener("install", event => {
@@ -68,8 +92,9 @@ self.addEventListener("fetch", event => {
       fetch(event.request)
         .then(response => {
           if (response && response.ok) {
-            const copy = response.clone();
-            caches.open(CACHE_NAME).then(cache => cache.put("./index.html", copy));
+            caches
+              .open(CACHE_NAME)
+              .then(cache => cache.put("./index.html", response.clone()));
           }
           return response;
         })
@@ -83,8 +108,9 @@ self.addEventListener("fetch", event => {
       const network = fetch(event.request)
         .then(response => {
           if (response && response.ok) {
-            const copy = response.clone();
-            caches.open(CACHE_NAME).then(cache => cache.put(event.request, copy));
+            caches
+              .open(CACHE_NAME)
+              .then(cache => cache.put(event.request, response.clone()));
           }
           return response;
         })
