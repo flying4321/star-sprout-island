@@ -11,14 +11,14 @@
   <title>星芽岛</title>
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/icon-180.png">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=1.3.2">
 </head>
 <body>
   <main class="app-shell" id="app">
 <header class="topbar">
       <div>
         <h1 id="islandTitle">我的世界・自然小木屋岛</h1>
-        <p>当前建设：<strong id="buildCount">0</strong> / <span id="buildMax">60</span></p>
+        <p>当前建设：<strong id="buildCount">0</strong> / <span id="buildMax">10</span></p>
       </div>
       <div class="daily-light" aria-label="今日星光进度">
         <span>今日星光</span>
@@ -41,44 +41,18 @@
         <div class="island-stage" id="islandStage">
           <div class="scene-world" id="sceneWorld" aria-label="从零开始建设的自然小木屋岛">
             <img class="scene-base" src="assets/island-base-zero.jpg" alt="等待建设的空白小岛">
-            <img class="construction-layer mascot-layer" id="mascotLayer" src="assets/layer-mascot.png" alt="">
-            <img class="construction-layer path-layer" id="pathLayer" src="assets/layer-path.png" alt="">
-            <img class="construction-layer forest-layer" id="forestLayer" src="assets/layer-forest.png" alt="">
-            <img class="construction-layer library-layer" id="libraryLayer" src="assets/layer-library.png" alt="">
-            <img class="construction-layer cottage-layer" id="cottageLayer" src="assets/layer-cottage.png" alt="">
-            <img class="construction-layer slide-layer" id="slideLayer" src="assets/layer-slide.png" alt="">
-            <img class="final-scene" id="finalScene" src="assets/nature-island-scene.jpg" alt="建设完成的自然小木屋岛">
+            <div class="coherent-build-layer" id="natureBuildLayer" aria-hidden="true"></div>
           </div>
 
-          <div class="robot-world" id="robotWorld" aria-label="机器人基地岛">
-            <img class="scene-base" src="assets/robot-island-base.jpg" alt="等待建设的机器人基地岛">
-            <img class="construction-layer robot-path-layer" id="robotPathLayer" src="assets/robot-layer-path.png" alt="">
-            <img class="construction-layer robot-solar-layer" id="robotSolarLayer" src="assets/robot-layer-solar.png" alt="">
-            <img class="construction-layer robot-gears-layer" id="robotGearsLayer" src="assets/robot-layer-gears.png" alt="">
-            <img class="construction-layer robot-lab-layer" id="robotLabLayer" src="assets/robot-layer-lab.png" alt="">
-            <img class="construction-layer robot-tower-layer" id="robotTowerLayer" src="assets/robot-layer-tower.png" alt="">
-            <img class="final-scene" id="robotFinalScene" src="assets/robot-island-complete.jpg" alt="建设完成的机器人基地岛">
+          <div class="robot-world" id="robotWorld" aria-label="火星机器人基地岛">
+            <img class="scene-base" src="assets/coherent-robot-base.jpg" alt="等待建设的空白火星基地">
+            <div class="coherent-build-layer" id="robotBuildLayer" aria-hidden="true"></div>
           </div>
-
-          <div class="ocean-world" id="oceanWorld" aria-label="海底邮局岛">
-            <img class="scene-base" src="assets/ocean-island-base.jpg" alt="等待建设的海底邮局岛">
-            <img class="construction-layer ocean-path-layer" id="oceanPathLayer" src="assets/ocean-layer-path.png" alt="">
-            <img class="construction-layer ocean-coral-layer" id="oceanCoralLayer" src="assets/ocean-layer-coral.png" alt="">
-            <img class="construction-layer ocean-delivery-layer" id="oceanDeliveryLayer" src="assets/ocean-layer-delivery.png" alt="">
-            <img class="construction-layer ocean-postoffice-layer" id="oceanPostOfficeLayer" src="assets/ocean-layer-postoffice.png" alt="">
-            <img class="construction-layer ocean-bubbles-layer" id="oceanBubblesLayer" src="assets/ocean-layer-bubbles.png" alt="">
-            <img class="final-scene" id="oceanFinalScene" src="assets/ocean-island-complete.jpg" alt="建设完成的海底邮局岛">
           </div>
 
           <div class="coconut-world" id="coconutWorld" aria-label="椰子岛">
             <img class="scene-base" src="assets/coconut-island-base.jpg" alt="等待建设的椰子岛海面">
-            <img class="construction-layer coconut-island-layer" id="coconutIslandLayer" src="assets/coconut-layer-island.png" alt="">
-            <img class="construction-layer coconut-animals-layer" id="coconutAnimalsLayer" src="assets/coconut-layer-animals.png" alt="">
-            <img class="construction-layer coconut-trunk-layer" id="coconutTrunkLayer" src="assets/coconut-layer-trunk.png" alt="">
-            <img class="construction-layer coconut-leaves-layer" id="coconutLeavesLayer" src="assets/coconut-layer-leaves.png" alt="">
-            <img class="construction-layer coconut-fruit-layer" id="coconutFruitLayer" src="assets/coconut-layer-fruit.png" alt="">
-            <img class="construction-layer coconut-grove-layer" id="coconutGroveLayer" src="assets/coconut-layer-grove.png" alt="">
-            <img class="final-scene" id="coconutFinalScene" src="assets/coconut-island-complete.jpg" alt="建设完成的椰子岛">
+            <div class="coherent-build-layer" id="coconutBuildLayer" aria-hidden="true"></div>
           </div>
           <div class="rainforest-world" id="rainforestWorld" aria-label="雨林岛自由建造">
             <img class="scene-base rainforest-scene-base" src="assets/rainforest-island-base.jpg" alt="等待自由建造的空白雨林岛">
@@ -117,6 +91,9 @@
           <button class="scene-hotspot library-hotspot" data-place="树洞图书馆" aria-label="查看树洞图书馆"></button>
           <button class="scene-hotspot cottage-hotspot" data-place="自然小木屋" aria-label="查看自然小木屋"></button>
           <button class="scene-hotspot slide-hotspot" data-place="彩虹滑梯" aria-label="查看彩虹滑梯"></button>
+          <button class="scene-hotspot robot-hotspot robot-energy-hotspot" data-place="充电花园" aria-label="查看机器人岛充电花园"></button>
+          <button class="scene-hotspot robot-hotspot robot-buddies-hotspot" data-place="机械小伙伴" aria-label="查看机器人岛机械小伙伴"></button>
+          <button class="scene-hotspot robot-hotspot robot-drone-hotspot" data-place="星星快递无人机" aria-label="查看机器人岛星星快递无人机"></button>
 
           <div class="scene-tip" id="sceneTip">完成今日任务，让小岛一点点成长</div>
         </div>
@@ -170,20 +147,14 @@
       </button>
       <button class="island-card locked" id="robotIslandCard" data-island="robot" type="button">
         <div class="island-card-art">🤖</div>
-        <h3>机器人基地岛</h3>
+        <h3>火星机器人基地岛</h3>
         <p id="robotIslandDescription">完成自然小木屋岛后解锁</p>
         <span id="robotIslandStatus">尚未解锁</span>
-      </button>
-      <button class="island-card locked" id="oceanIslandCard" data-island="ocean" type="button" disabled>
-        <div class="island-card-art">🐚</div>
-        <h3>海底邮局岛</h3>
-        <p id="oceanIslandDescription">完成机器人基地岛后解锁</p>
-        <span id="oceanIslandStatus">尚未解锁</span>
       </button>
       <button class="island-card locked" id="coconutIslandCard" data-island="coconut" type="button" disabled>
         <div class="island-card-art">🥥</div>
         <h3>椰子岛</h3>
-        <p id="coconutIslandDescription">完成海底邮局岛后解锁</p>
+        <p id="coconutIslandDescription">完成火星机器人基地岛后解锁</p>
         <span id="coconutIslandStatus">尚未解锁</span>
       </button>
       <button class="island-card locked" id="rainforestIslandCard" data-island="rainforest" type="button" disabled>
@@ -219,7 +190,7 @@
 
   <section class="modal wide-modal rainforest-progress-modal" id="rainforestProgressModal" role="dialog" aria-modal="true" aria-labelledby="rainforestProgressTitle" hidden>
     <button class="modal-close" data-close-modal aria-label="关闭">×</button>
-    <p class="eyebrow">完成任意任务都会随机解锁新素材</p>
+    <p class="eyebrow">在雨林岛完成任意任务会随机解锁新素材</p>
     <h2 id="rainforestProgressTitle">雨林建设进度</h2>
 
     <div class="rainforest-progress-hero">
@@ -228,7 +199,7 @@
         <strong id="rfProgressTotal">12 / 80</strong>
       </div>
       <div class="progress-track"><span id="rfProgressBar"></span></div>
-      <p id="rfProgressTip">每完成一次任务，从尚未解锁的素材中随机获得一个。</p>
+      <p id="rfProgressTip">在雨林岛每完成一次任务，从尚未解锁的素材中随机获得一个。</p>
     </div>
 
     <div class="rainforest-category-progress" id="rfCategoryProgress"></div>
@@ -296,7 +267,7 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <script src="app.js"></script>
-  <script src="rainforest.js"></script>
+  <script src="app.js?v=1.3.2"></script>
+  <script src="rainforest.js?v=1.3.2"></script>
 </body>
 </html>

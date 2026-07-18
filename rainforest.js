@@ -309,7 +309,7 @@
             }
           </span>
           <strong>${variant.name}</strong>
-          <small>${available ? "点击添加" : "🔒 等待随机解锁"}</small>
+          <small>${available ? "点击添加" : "🔒 完成任务后出现"}</small>
         </button>
       `;
     }).join("");
@@ -331,7 +331,7 @@
     $("#rfProgressTip").textContent =
       total >= VARIANTS.length
         ? "全部素材已经解锁，已解锁素材可无限重复使用。"
-        : `还剩 ${VARIANTS.length - total} 种素材。完成任意任务会随机解锁其中一种。`;
+        : `还剩 ${VARIANTS.length - total} 种素材。完成任务会随机解锁其中一种，并直接把完整素材放到岛上。`;
 
     $("#rfCategoryProgress").innerHTML = Object.entries(CATEGORIES).map(
       ([category, config]) => {
@@ -483,6 +483,27 @@
     render();
     bridge.closeAllModals();
     bridge.showToast(`已添加：${variant.name}`);
+  }
+
+  function autoPlaceUnlockedMaterial(variantId) {
+    const variant = VARIANT_MAP[variantId];
+    if (!variant || rainforestState().items.length >= 100) return false;
+
+    const position = defaultPosition(variant.category);
+    rainforestState().items.push({
+      id: makeId(),
+      variantId,
+      category: variant.category,
+      x: position.x,
+      y: position.y,
+      scale: variant.category === "tree" ? 0.62 : 0.78,
+      rotation: variant.rotation,
+      z: nextZ(variant.category),
+      flip: variant.flip
+    });
+
+    selectedId = null;
+    return true;
   }
 
   function constrain(variant, x, y) {
@@ -793,6 +814,7 @@
   });
 
   window.RainforestEditor = {
+    autoPlaceUnlockedMaterial,
     render,
     openLibrary,
     openProgress,

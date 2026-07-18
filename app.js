@@ -2,7 +2,16 @@
   "use strict";
 
   const STORAGE_KEY = "starSprout-iPad-production-v1";
-  const MAX_BUILD = 60;
+  const LEGACY_BUILD_MAX = 60;
+  const BUILD_MAXES = {
+    nature: 10,
+    robot: 19,
+    coconut: 14
+  };
+
+  function maxBuildFor(island) {
+    return BUILD_MAXES[island] || 0;
+  }
   const PARENT_HOLD_MS = 1800;
 
   const RAINFOREST_MATERIAL_CATEGORIES = {
@@ -130,40 +139,27 @@
       title: "我的世界・自然小木屋岛",
       icon: "🏡",
       stages: [
-        { max: 0, icon: "🌱", name: "荒地起步" },
-        { max: 5, icon: "🪨", name: "铺设小路" },
-        { max: 13, icon: "🌲", name: "森林萌芽" },
-        { max: 22, icon: "📚", name: "树洞图书馆" },
-        { max: 42, icon: "🏡", name: "建造小木屋" },
-        { max: 52, icon: "🛝", name: "添置彩虹滑梯" },
-        { max: 59, icon: "✨", name: "完善岛屿细节" },
-        { max: 60, icon: "🌟", name: "自然小木屋岛完成" }
+        { max: 0, icon: "🌱", name: "空白自然岛" },
+        { max: 1, icon: "🌱", name: "星芽伙伴抵达" },
+        { max: 6, icon: "🪨", name: "铺设小路" },
+        { max: 7, icon: "🌲", name: "森林景观" },
+        { max: 8, icon: "📚", name: "树洞图书馆" },
+        { max: 9, icon: "🏡", name: "自然小木屋" },
+        { max: 10, icon: "🌟", name: "自然小木屋岛完成" }
       ]
     },
     robot: {
-      title: "我的世界・机器人基地岛",
+      title: "我的世界・火星机器人基地岛",
       icon: "🤖",
       stages: [
-        { max: 0, icon: "🤖", name: "基地起步" },
-        { max: 8, icon: "🛤️", name: "铺设科技通道" },
-        { max: 20, icon: "☀️", name: "安装太阳能板" },
-        { max: 32, icon: "⚙️", name: "机械工坊" },
-        { max: 48, icon: "🧪", name: "机器人实验室" },
-        { max: 56, icon: "📡", name: "通讯塔" },
-        { max: 60, icon: "🌟", name: "机器人基地岛完成" }
-      ]
-    },
-    ocean: {
-      title: "我的世界・海底邮局岛",
-      icon: "🐚",
-      stages: [
-        { max: 0, icon: "🐟", name: "海底起步" },
-        { max: 8, icon: "🐚", name: "铺设贝壳小路" },
-        { max: 20, icon: "🪸", name: "珊瑚花园" },
-        { max: 32, icon: "📦", name: "包裹配送站" },
-        { max: 50, icon: "📮", name: "贝壳邮局" },
-        { max: 57, icon: "🫧", name: "泡泡传送管" },
-        { max: 60, icon: "🌟", name: "海底邮局岛完成" }
+        { max: 0, icon: "🔴", name: "空白火星岛" },
+        { max: 1, icon: "🪨", name: "火星地基与道路" },
+        { max: 5, icon: "📡", name: "能源与通讯设施" },
+        { max: 7, icon: "⚙️", name: "生活舱与辅助平台" },
+        { max: 10, icon: "🌐", name: "中央基地与生态穹顶" },
+        { max: 13, icon: "🦾", name: "温室与机械工作区" },
+        { max: 16, icon: "🚙", name: "火星车与地面机器人" },
+        { max: 19, icon: "🌟", name: "火星机器人基地完成" }
       ]
     },
     coconut: {
@@ -171,13 +167,11 @@
       icon: "🥥",
       stages: [
         { max: 0, icon: "🌊", name: "蔚蓝海面" },
-        { max: 8, icon: "🏝️", name: "建设小岛" },
-        { max: 18, icon: "🦀", name: "沙滩动物来安家" },
-        { max: 30, icon: "🌱", name: "种下椰子树" },
-        { max: 40, icon: "🌴", name: "长出椰子树叶" },
-        { max: 50, icon: "🥥", name: "结出香甜椰子" },
-        { max: 58, icon: "🌴", name: "椰林越来越茂盛" },
-        { max: 60, icon: "🌟", name: "椰子岛完成" }
+        { max: 1, icon: "🏝️", name: "沙滩岛基" },
+        { max: 7, icon: "🦀", name: "沙滩伙伴来安家" },
+        { max: 10, icon: "🌴", name: "主椰树长成" },
+        { max: 12, icon: "🥥", name: "椰子成熟" },
+        { max: 14, icon: "🌟", name: "椰子岛完成" }
       ]
     },
     rainforest: {
@@ -190,12 +184,13 @@
 
   const DEFAULT_STATE = {
     version: 1,
+    buildScaleVersion: 2,
+    islandSetVersion: 2,
     currentIsland: "nature",
     lastDate: "",
     progress: {
       nature: 0,
       robot: 0,
-      ocean: 0,
       coconut: 0
     },
     tasks: [
@@ -253,13 +248,13 @@
     growth: {
       nature: [],
       robot: [],
-      ocean: [],
       coconut: []
     },
     rainforest: {
       initialized: true,
       layoutVersion: 2,
       unlockVersion: 2,
+      rewardScopeVersion: 1,
       unlockedMaterials: [
         "river-1",
         "lily-1",
@@ -318,24 +313,6 @@
       habit: [
         { icon: "🔧", message: "机械工坊整理好了一套工具。" },
         { icon: "🤖", message: "小机器人学会了一个新动作。" }
-      ]
-    },
-    ocean: {
-      math: [
-        { icon: "🐚", message: "海底邮路多了一枚漂亮的贝壳。" },
-        { icon: "🫧", message: "泡泡传送管又点亮了一段。" }
-      ],
-      language: [
-        { icon: "💌", message: "海底邮局收到了一封新的故事信。" },
-        { icon: "📮", message: "贝壳邮箱里多了一张明信片。" }
-      ],
-      english: [
-        { icon: "🐠", message: "小鱼邮差学会了一句新的问候。" },
-        { icon: "🌊", message: "远方海流送来了一封英文信。" }
-      ],
-      habit: [
-        { icon: "🪸", message: "珊瑚花园长出了一簇新珊瑚。" },
-        { icon: "🦈", message: "友好的鲨鱼又完成了一次巡游。" }
       ]
     },
     coconut: {
@@ -423,11 +400,34 @@
       ...(input || {})
     };
 
+    const currentBuildScale =
+      Number(input?.buildScaleVersion) === 2;
+
+    function normalizeIslandProgress(island) {
+      const targetMax = maxBuildFor(island);
+      const raw = Math.max(0, Number(input?.progress?.[island]) || 0);
+
+      if (currentBuildScale) {
+        return clampNumber(raw, 0, targetMax);
+      }
+
+      if (raw >= LEGACY_BUILD_MAX) {
+        return targetMax;
+      }
+
+      return clampNumber(
+        Math.round((raw / LEGACY_BUILD_MAX) * targetMax),
+        0,
+        targetMax
+      );
+    }
+
+    result.buildScaleVersion = 2;
+    result.islandSetVersion = 2;
     result.progress = {
-      nature: clampNumber(input?.progress?.nature, 0, MAX_BUILD),
-      robot: clampNumber(input?.progress?.robot, 0, MAX_BUILD),
-      ocean: clampNumber(input?.progress?.ocean, 0, MAX_BUILD),
-      coconut: clampNumber(input?.progress?.coconut, 0, MAX_BUILD)
+      nature: normalizeIslandProgress("nature"),
+      robot: normalizeIslandProgress("robot"),
+      coconut: normalizeIslandProgress("coconut")
     };
 
     result.tasks = Array.isArray(input?.tasks)
@@ -446,14 +446,21 @@
       : deepClone(DEFAULT_STATE.tasks);
 
     result.logs = Array.isArray(input?.logs)
-      ? input.logs.slice(0, 100)
+      ? input.logs
+          .filter(log => log?.island !== "ocean")
+          .slice(0, 100)
       : deepClone(DEFAULT_STATE.logs);
 
     result.growth = {
-      nature: Array.isArray(input?.growth?.nature) ? input.growth.nature.slice(-20) : [],
-      robot: Array.isArray(input?.growth?.robot) ? input.growth.robot.slice(-20) : [],
-      ocean: Array.isArray(input?.growth?.ocean) ? input.growth.ocean.slice(-20) : [],
-      coconut: Array.isArray(input?.growth?.coconut) ? input.growth.coconut.slice(-20) : []
+      nature: Array.isArray(input?.growth?.nature)
+        ? input.growth.nature.slice(-20)
+        : [],
+      robot: Array.isArray(input?.growth?.robot)
+        ? input.growth.robot.slice(-20)
+        : [],
+      coconut: Array.isArray(input?.growth?.coconut)
+        ? input.growth.coconut.slice(-20)
+        : []
     };
 
     const rainforestLayoutCurrent =
@@ -486,28 +493,52 @@
       ...unlockedMaterials
     ]);
 
+    // v1.2.7：旧版曾在前四座岛错误解锁雨林素材。
+    // 雨林尚未开放时，这些额外素材不可能来自正常游玩，升级时安全回退为基础素材。
+    const rewardScopeCurrent =
+      Number(input?.rainforest?.rewardScopeVersion) === 1;
+    const rainforestWasUnlocked =
+      normalizeIslandProgress("coconut") >= maxBuildFor("coconut");
+
+    if (!rewardScopeCurrent && !rainforestWasUnlocked) {
+      unlockedMaterials = [...RAINFOREST_BASE_MATERIALS];
+    }
+
     result.rainforest = {
       initialized: true,
       layoutVersion: 2,
       unlockVersion: 2,
+      rewardScopeVersion: 1,
       unlockedMaterials,
       items: rainforestLayoutCurrent && Array.isArray(input?.rainforest?.items)
         ? input.rainforest.items.slice(0, 100)
         : []
     };
 
+    const requestedLastStandardIsland =
+      input?.lastStandardIsland === "ocean"
+        ? "coconut"
+        : input?.lastStandardIsland;
+
     result.lastStandardIsland =
-      ["nature", "robot", "ocean", "coconut"].includes(input?.lastStandardIsland)
-        ? input.lastStandardIsland
+      ["nature", "robot", "coconut"].includes(requestedLastStandardIsland)
+        ? requestedLastStandardIsland
         : "coconut";
 
+    const requestedCurrentIsland =
+      input?.currentIsland === "ocean"
+        ? "coconut"
+        : input?.currentIsland;
+
     result.currentIsland =
-      ["nature", "robot", "ocean", "coconut", "rainforest"].includes(input?.currentIsland)
-        ? input.currentIsland
+      ["nature", "robot", "coconut", "rainforest"].includes(
+        requestedCurrentIsland
+      )
+        ? requestedCurrentIsland
         : "nature";
 
     if (!isIslandUnlocked(result.currentIsland, result)) {
-      const available = ["coconut", "ocean", "robot", "nature"]
+      const available = ["coconut", "robot", "nature"]
         .find(island => isIslandUnlocked(island, result));
       result.currentIsland = available || "nature";
     }
@@ -562,11 +593,14 @@
 
   function isIslandUnlocked(island, source = state) {
     if (island === "nature") return true;
-    if (island === "robot") return source.progress.nature >= MAX_BUILD;
-    if (island === "ocean") return source.progress.robot >= MAX_BUILD;
-    if (island === "coconut") return source.progress.ocean >= MAX_BUILD;
+    if (island === "robot") {
+      return source.progress.nature >= maxBuildFor("nature");
+    }
+    if (island === "coconut") {
+      return source.progress.robot >= maxBuildFor("robot");
+    }
     if (island === "rainforest") {
-      return source.progress.coconut >= MAX_BUILD;
+      return source.progress.coconut >= maxBuildFor("coconut");
     }
     return false;
   }
@@ -588,10 +622,285 @@
   function setLayerProgress(element, progress) {
     if (!element) return;
     const p = Math.max(0, Math.min(1, progress));
-    element.style.setProperty("--layer-opacity", p === 0 ? 0 : 0.22 + p * 0.78);
-    element.style.setProperty("--layer-clip", `${(1 - p) * 100}%`);
-    element.style.setProperty("--layer-shift", `${(1 - p) * 12}px`);
-    element.style.setProperty("--layer-scale", 0.96 + p * 0.04);
+    const visible = p > 0;
+
+    // 分层素材本身含有不同大小的透明边距。旧版用整图底部裁切，
+    // 会造成机器人岛、海底岛及椰子树叶阶段前几次任务完全看不到变化。
+    // 改为整层渐显并配合轻微位移/缩放，确保每一点进度都能被看见。
+    element.style.setProperty(
+      "--layer-opacity",
+      visible ? 0.12 + p * 0.88 : 0
+    );
+    element.style.setProperty("--layer-clip", visible ? "0%" : "100%");
+    element.style.setProperty("--layer-shift", `${(1 - p) * 8}px`);
+    element.style.setProperty("--layer-scale", 0.97 + p * 0.03);
+  }
+
+  function setDiscreteLayerVisible(element, visible) {
+    if (!element) return;
+    element.style.setProperty("--layer-opacity", visible ? 1 : 0);
+    element.style.setProperty("--layer-clip", visible ? "0%" : "100%");
+    element.style.setProperty("--layer-shift", visible ? "0px" : "8px");
+    element.style.setProperty("--layer-scale", visible ? 1 : 0.97);
+  }
+
+  const BUILD_PARTS = {
+  "nature": [
+    {
+      "file": "nature-build-01.png",
+      "name": "星芽伙伴来到岛上",
+      "icon": "🌱"
+    },
+    {
+      "file": "nature-build-02.png",
+      "name": "铺好第 1 块小路石",
+      "icon": "🪨"
+    },
+    {
+      "file": "nature-build-03.png",
+      "name": "铺好第 2 块小路石",
+      "icon": "🪨"
+    },
+    {
+      "file": "nature-build-04.png",
+      "name": "铺好第 3 块小路石",
+      "icon": "🪨"
+    },
+    {
+      "file": "nature-build-05.png",
+      "name": "铺好第 4 块小路石",
+      "icon": "🪨"
+    },
+    {
+      "file": "nature-build-06.png",
+      "name": "铺好第 5 块小路石",
+      "icon": "🪨"
+    },
+    {
+      "file": "nature-build-07.png",
+      "name": "森林景观",
+      "icon": "🌲"
+    },
+    {
+      "file": "nature-build-08.png",
+      "name": "树洞图书馆",
+      "icon": "📚"
+    },
+    {
+      "file": "nature-build-09.png",
+      "name": "自然小木屋",
+      "icon": "🏡"
+    },
+    {
+      "file": "nature-build-10.png",
+      "name": "彩虹滑梯",
+      "icon": "🛝"
+    }
+  ],
+  "robot": [
+    {
+      "file": "robot-build-01-terrain.png",
+      "name": "火星地基、道路与基础平台",
+      "icon": "🪨"
+    },
+    {
+      "file": "robot-build-02.png",
+      "name": "左前数据终端",
+      "icon": "🖥️"
+    },
+    {
+      "file": "robot-build-03.png",
+      "name": "太阳能阵列",
+      "icon": "☀️"
+    },
+    {
+      "file": "robot-build-04.png",
+      "name": "能源通讯塔",
+      "icon": "📡"
+    },
+    {
+      "file": "robot-build-05.png",
+      "name": "卫星接收天线",
+      "icon": "📡"
+    },
+    {
+      "file": "robot-build-06.png",
+      "name": "左侧生活舱",
+      "icon": "🚪"
+    },
+    {
+      "file": "robot-build-07.png",
+      "name": "中央辅助平台",
+      "icon": "⚙️"
+    },
+    {
+      "file": "robot-build-08.png",
+      "name": "中央基地舱",
+      "icon": "🏠"
+    },
+    {
+      "file": "robot-build-09.png",
+      "name": "透明生态穹顶",
+      "icon": "🌐"
+    },
+    {
+      "file": "robot-build-10.png",
+      "name": "基地顶端机器人",
+      "icon": "🤖"
+    },
+    {
+      "file": "robot-build-11.png",
+      "name": "右侧温室通道",
+      "icon": "🌱"
+    },
+    {
+      "file": "robot-build-12.png",
+      "name": "右侧通讯塔",
+      "icon": "📡"
+    },
+    {
+      "file": "robot-build-13.png",
+      "name": "机械臂工作站",
+      "icon": "🦾"
+    },
+    {
+      "file": "robot-build-14.png",
+      "name": "生态植物舱",
+      "icon": "🌿"
+    },
+    {
+      "file": "robot-build-15.png",
+      "name": "火星探测车",
+      "icon": "🚙"
+    },
+    {
+      "file": "robot-build-16.png",
+      "name": "中央巡逻机器人",
+      "icon": "🤖"
+    },
+    {
+      "file": "robot-build-17.png",
+      "name": "货运与储能模块",
+      "icon": "🔋"
+    },
+    {
+      "file": "robot-build-18.png",
+      "name": "空中运输无人机",
+      "icon": "🛸"
+    },
+    {
+      "file": "robot-build-19.png",
+      "name": "空中侦察球",
+      "icon": "🔵"
+    }
+  ],
+  "coconut": [
+    {
+      "file": "coconut-build-01.png",
+      "name": "沙滩岛基",
+      "icon": "🏝️"
+    },
+    {
+      "file": "coconut-build-02.png",
+      "name": "左侧小螃蟹",
+      "icon": "🦀"
+    },
+    {
+      "file": "coconut-build-03.png",
+      "name": "粉色贝壳",
+      "icon": "🐚"
+    },
+    {
+      "file": "coconut-build-04.png",
+      "name": "海边小伙伴",
+      "icon": "🐢"
+    },
+    {
+      "file": "coconut-build-05.png",
+      "name": "热带果实",
+      "icon": "🍍"
+    },
+    {
+      "file": "coconut-build-06.png",
+      "name": "右侧小螃蟹",
+      "icon": "🦀"
+    },
+    {
+      "file": "coconut-build-07.png",
+      "name": "沙滩海星",
+      "icon": "⭐"
+    },
+    {
+      "file": "coconut-build-08.png",
+      "name": "主椰树树干",
+      "icon": "🌴"
+    },
+    {
+      "file": "coconut-build-09.png",
+      "name": "主椰树树冠",
+      "icon": "🌿"
+    },
+    {
+      "file": "coconut-build-10.png",
+      "name": "右侧椰树树冠",
+      "icon": "🌿"
+    },
+    {
+      "file": "coconut-build-11.png",
+      "name": "树上椰子",
+      "icon": "🥥"
+    },
+    {
+      "file": "coconut-build-12.png",
+      "name": "落地椰子",
+      "icon": "🥥"
+    },
+    {
+      "file": "coconut-build-13.png",
+      "name": "左侧椰林",
+      "icon": "🌴"
+    },
+    {
+      "file": "coconut-build-14.png",
+      "name": "右侧椰林",
+      "icon": "🌴"
+    }
+  ]
+};
+
+  function ensureCoherentBuildLayer(island) {
+    const container = $(`#${island}BuildLayer`);
+    const parts = BUILD_PARTS[island] || [];
+    if (!container || container.dataset.initialized === "true") {
+      return container;
+    }
+
+    container.innerHTML = parts.map((part, index) => `
+      <img
+        class="coherent-build-part"
+        data-build-index="${index + 1}"
+        src="assets/${part.file}"
+        alt=""
+      >
+    `).join("");
+
+    container.dataset.initialized = "true";
+    return container;
+  }
+
+  function renderCoherentBuild(island, progress) {
+    const container = ensureCoherentBuildLayer(island);
+    if (!container) return;
+
+    container.querySelectorAll(".coherent-build-part").forEach(node => {
+      const index = Number(node.dataset.buildIndex || 0);
+      node.classList.toggle("is-visible", index <= progress);
+    });
+  }
+
+  function buildRevealAt(island, progress) {
+    const index = Math.max(0, Math.floor(Number(progress) || 0) - 1);
+    return BUILD_PARTS[island]?.[index] || null;
   }
 
   function currentStage() {
@@ -636,7 +945,7 @@
 
     const progress = currentProgress();
     buildCountEl.textContent = progress;
-    buildMaxEl.textContent = MAX_BUILD;
+    buildMaxEl.textContent = maxBuildFor(state.currentIsland);
     islandTitleEl.textContent = ISLANDS[state.currentIsland].title;
     islandStageEl.dataset.buildCount = String(progress);
 
@@ -691,77 +1000,30 @@
   }
 
   function renderGrowth() {
-    const items = state.growth[state.currentIsland].slice(-8);
-
-    growthLayerEl.innerHTML = items.map((item, index) => {
-      const position = item.position || GROWTH_POSITIONS[index % GROWTH_POSITIONS.length];
-      return `
-        <span
-          class="growth-item"
-          style="left:${position.left}%;top:${position.top}%"
-        >${escapeHtml(item.icon)}</span>
-      `;
-    }).join("");
+    // v1.3.0：使用固定的离散建造元素，不再叠加旧版临时表情。
+    growthLayerEl.innerHTML = "";
   }
 
   function renderBuildStage() {
     const value = currentProgress();
-    const natureMode = state.currentIsland === "nature";
-    const robotMode = state.currentIsland === "robot";
-    const oceanMode = state.currentIsland === "ocean";
-    const coconutMode = state.currentIsland === "coconut";
-    const rainforestMode = state.currentIsland === "rainforest";
+    const island = state.currentIsland;
+    const natureMode = island === "nature";
+    const robotMode = island === "robot";
+    const coconutMode = island === "coconut";
+    const rainforestMode = island === "rainforest";
+    const islandMax = maxBuildFor(island);
 
     islandStageEl.classList.toggle("robot-island", robotMode);
-    islandStageEl.classList.toggle("ocean-island", oceanMode);
+    islandStageEl.classList.remove("ocean-island");
     islandStageEl.classList.toggle("coconut-island", coconutMode);
     islandStageEl.classList.toggle("rainforest-island", rainforestMode);
     islandStageEl.classList.toggle(
       "is-complete",
-      !rainforestMode && value >= MAX_BUILD
+      !rainforestMode && value >= islandMax
     );
 
-    $("#finalScene").style.opacity = 0;
-    $("#robotFinalScene").style.opacity = 0;
-    $("#oceanFinalScene").style.opacity = 0;
-    $("#coconutFinalScene").style.opacity = 0;
-
-    if (natureMode) {
-      setLayerProgress($("#mascotLayer"), 1);
-      setLayerProgress($("#pathLayer"), segmentProgress(value, 0, 5));
-      setLayerProgress($("#forestLayer"), segmentProgress(value, 4, 13));
-      setLayerProgress($("#libraryLayer"), segmentProgress(value, 10, 22));
-      setLayerProgress($("#cottageLayer"), segmentProgress(value, 20, 42));
-      setLayerProgress($("#slideLayer"), segmentProgress(value, 40, 52));
-      $("#finalScene").style.opacity = segmentProgress(value, 55, 60);
-    }
-
-    if (robotMode) {
-      setLayerProgress($("#robotPathLayer"), segmentProgress(value, 0, 8));
-      setLayerProgress($("#robotSolarLayer"), segmentProgress(value, 6, 20));
-      setLayerProgress($("#robotGearsLayer"), segmentProgress(value, 16, 32));
-      setLayerProgress($("#robotLabLayer"), segmentProgress(value, 28, 48));
-      setLayerProgress($("#robotTowerLayer"), segmentProgress(value, 44, 56));
-      $("#robotFinalScene").style.opacity = segmentProgress(value, 56, 60);
-    }
-
-    if (oceanMode) {
-      setLayerProgress($("#oceanPathLayer"), segmentProgress(value, 0, 8));
-      setLayerProgress($("#oceanCoralLayer"), segmentProgress(value, 6, 20));
-      setLayerProgress($("#oceanDeliveryLayer"), segmentProgress(value, 16, 32));
-      setLayerProgress($("#oceanPostOfficeLayer"), segmentProgress(value, 28, 50));
-      setLayerProgress($("#oceanBubblesLayer"), segmentProgress(value, 45, 57));
-      $("#oceanFinalScene").style.opacity = segmentProgress(value, 56, 60);
-    }
-
-    if (coconutMode) {
-      setLayerProgress($("#coconutIslandLayer"), segmentProgress(value, 0, 8));
-      setLayerProgress($("#coconutAnimalsLayer"), segmentProgress(value, 7, 18));
-      setLayerProgress($("#coconutTrunkLayer"), segmentProgress(value, 16, 30));
-      setLayerProgress($("#coconutLeavesLayer"), segmentProgress(value, 27, 40));
-      setLayerProgress($("#coconutFruitLayer"), segmentProgress(value, 38, 50));
-      setLayerProgress($("#coconutGroveLayer"), segmentProgress(value, 47, 58));
-      $("#coconutFinalScene").style.opacity = segmentProgress(value, 56, 60);
+    if (!rainforestMode) {
+      renderCoherentBuild(island, value);
     }
 
     if (rainforestMode) {
@@ -772,23 +1034,31 @@
       $("#sceneTip").textContent =
         unlocked >= RAINFOREST_ALL_MATERIALS.length
           ? "全部雨林素材已经解锁，可以自由创造完整生态"
-          : "完成任意任务，会随机解锁一个新的雨林素材";
+          : "在雨林岛完成任务，会解锁一个完整素材并直接出现在岛上";
       return;
     }
 
     const stage = currentStage();
     $("#buildStageIcon").textContent = stage.icon;
     $("#buildStageName").textContent = stage.name;
+
+    const nextPart = BUILD_PARTS[island]?.[value];
+    $("#sceneTip").textContent = value >= islandMax
+      ? `${ISLANDS[island].title.replace("我的世界・", "")}已经完整建成`
+      : nextPart
+        ? `下一次任务将建造：${nextPart.name}`
+        : "完成任务，让小岛继续建设";
   }
 
   function renderIslandMap() {
-    const natureComplete = state.progress.nature >= MAX_BUILD;
+    const natureComplete =
+      state.progress.nature >= maxBuildFor("nature");
     const robotUnlocked = isIslandUnlocked("robot");
-    const robotComplete = state.progress.robot >= MAX_BUILD;
-    const oceanUnlocked = isIslandUnlocked("ocean");
-    const oceanComplete = state.progress.ocean >= MAX_BUILD;
+    const robotComplete =
+      state.progress.robot >= maxBuildFor("robot");
     const coconutUnlocked = isIslandUnlocked("coconut");
-    const coconutComplete = state.progress.coconut >= MAX_BUILD;
+    const coconutComplete =
+      state.progress.coconut >= maxBuildFor("coconut");
     const rainforestUnlocked = isIslandUnlocked("rainforest");
 
     updateIslandCard({
@@ -797,8 +1067,12 @@
       unlocked: true,
       complete: natureComplete,
       progress: state.progress.nature,
-      description: natureComplete ? "已完成，可随时返回" : "当前建设中的成长世界",
-      status: natureComplete ? "已完成" : `${state.progress.nature} / ${MAX_BUILD}`
+      description: natureComplete
+        ? "已完成，可随时返回"
+        : "当前建设中的成长世界",
+      status: natureComplete
+        ? "已完成"
+        : `${state.progress.nature} / ${maxBuildFor("nature")}`
     });
 
     updateIslandCard({
@@ -810,31 +1084,13 @@
       description: !robotUnlocked
         ? "完成自然小木屋岛后解锁"
         : robotComplete
-          ? "机器人基地建设完成"
+          ? "火星机器人基地建设完成"
           : "新的成长世界，点击进入建设",
       status: !robotUnlocked
         ? "尚未解锁"
         : robotComplete
           ? "已完成"
-          : `${state.progress.robot} / ${MAX_BUILD}`
-    });
-
-    updateIslandCard({
-      card: $("#oceanIslandCard"),
-      island: "ocean",
-      unlocked: oceanUnlocked,
-      complete: oceanComplete,
-      progress: state.progress.ocean,
-      description: !oceanUnlocked
-        ? "完成机器人基地岛后解锁"
-        : oceanComplete
-          ? "海底邮局建设完成"
-          : "新的海底成长世界，点击进入建设",
-      status: !oceanUnlocked
-        ? "尚未解锁"
-        : oceanComplete
-          ? "已完成"
-          : `${state.progress.ocean} / ${MAX_BUILD}`
+          : `${state.progress.robot} / ${maxBuildFor("robot")}`
     });
 
     updateIslandCard({
@@ -844,7 +1100,7 @@
       complete: coconutComplete,
       progress: state.progress.coconut,
       description: !coconutUnlocked
-        ? "完成海底邮局岛后解锁"
+        ? "完成火星机器人基地岛后解锁"
         : coconutComplete
           ? "椰子岛建设完成"
           : "从大海开始建设热带椰林",
@@ -852,7 +1108,7 @@
         ? "尚未解锁"
         : coconutComplete
           ? "已完成"
-          : `${state.progress.coconut} / ${MAX_BUILD}`
+          : `${state.progress.coconut} / ${maxBuildFor("coconut")}`
     });
 
     updateIslandCard({
@@ -979,9 +1235,12 @@
     const task = state.tasks.find(item => item.id === activeTaskId);
     if (!task) return;
 
+    const rainforestMode = state.currentIsland === "rainforest";
     const hadReachedTarget = taskIsComplete(task);
     task.progress = Math.max(0, Math.floor(Number(task.progress) || 0)) + 1;
-    const materialReward = awardRandomRainforestMaterial();
+    const materialReward = rainforestMode
+      ? awardRandomRainforestMaterial()
+      : null;
 
     const taskLogTitle = hadReachedTarget
       ? `${task.title}又完成一次`
@@ -989,7 +1248,6 @@
         ? `${task.title}完成啦`
         : `${task.title}前进了一步`;
 
-    const rainforestMode = state.currentIsland === "rainforest";
     let reachedCompletion = false;
     let toastMessage = "";
 
@@ -997,37 +1255,48 @@
       const rainforestEffects = [
         {
           icon: "💧",
-          message: "雨林岛记录了一滴成长雨露，素材仍由你自由摆放。"
+          message: "雨林岛记录了一滴成长雨露，新素材正在岛上落地。"
         },
         {
           icon: "🍃",
-          message: "雨林里吹来一阵成长微风，自由建造画布保持原样。"
+          message: "雨林里吹来一阵成长微风，一个完整素材加入了生态。"
         },
         {
           icon: "✨",
-          message: "今天的努力化成了一点雨林星光。"
+          message: "今天的努力化成雨林星光，并带来一个新伙伴。"
         },
         {
           icon: "🌱",
-          message: "雨林岛记录了一次新的成长努力。"
+          message: "雨林岛记录了一次成长努力，一个新元素已经出现。"
         }
       ];
 
       const effect =
         rainforestEffects[Math.floor(Math.random() * rainforestEffects.length)];
 
+      const autoPlaced = Boolean(
+        materialReward?.newlyUnlocked &&
+        window.RainforestEditor?.autoPlaceUnlockedMaterial?.(
+          materialReward.id
+        )
+      );
+      const placementMessage = autoPlaced
+        ? "，完整素材已直接出现在雨林岛上"
+        : "";
+
       addLog({
         island: "rainforest",
         icon: materialReward.icon || "🎁",
         title: taskLogTitle,
-        detail: `${effect.message} ${materialReward.message}`
+        detail: `${effect.message} ${materialReward.message}${placementMessage}`
       });
 
-      toastMessage = materialReward.message;
+      toastMessage = `${materialReward.message}${placementMessage}`;
     } else {
       const previousProgress = currentProgress();
+      const islandMax = maxBuildFor(state.currentIsland);
       state.progress[state.currentIsland] = Math.min(
-        MAX_BUILD,
+        islandMax,
         previousProgress + 1
       );
 
@@ -1051,24 +1320,32 @@
       });
       state.growth[state.currentIsland] = growthItems.slice(-20);
 
+      const revealReward = buildRevealAt(
+        state.currentIsland,
+        state.progress[state.currentIsland]
+      );
+      const revealMessage = revealReward
+        ? `${revealReward.icon || "✨"} 新增：${revealReward.name}`
+        : effect.message;
+
       addLog({
         island: state.currentIsland,
-        icon: effect.icon,
+        icon: revealReward?.icon || effect.icon,
         title: taskLogTitle,
-        detail: `${effect.message} ${materialReward.message}`
+        detail: `${effect.message} ${revealMessage}`
       });
 
       reachedCompletion =
-        previousProgress < MAX_BUILD &&
-        state.progress[state.currentIsland] >= MAX_BUILD;
+        previousProgress < islandMax &&
+        state.progress[state.currentIsland] >= islandMax;
 
       if (reachedCompletion) {
         handleIslandCompletion(state.currentIsland);
       }
 
       toastMessage = reachedCompletion
-        ? `${completionMessage(state.currentIsland)}；${materialReward.message}`
-        : `${effect.message} ${materialReward.message}`;
+        ? `${completionMessage(state.currentIsland)}；完整场景已出现`
+        : revealMessage;
     }
 
     saveState();
@@ -1083,7 +1360,7 @@
       addLog({
         island: "nature",
         icon: "🤖",
-        title: "机器人基地岛已解锁",
+        title: "火星机器人基地岛已解锁",
         detail: "新的成长世界已经出现在岛屿地图中。"
       });
     }
@@ -1091,18 +1368,9 @@
     if (island === "robot") {
       addLog({
         island: "robot",
-        icon: "🐚",
-        title: "海底邮局岛已解锁",
-        detail: "海底邮局岛已经出现在岛屿地图中。"
-      });
-    }
-
-    if (island === "ocean") {
-      addLog({
-        island: "ocean",
         icon: "🥥",
         title: "椰子岛已解锁",
-        detail: "新的热带成长世界已经出现在岛屿地图中。"
+        detail: "热带成长世界已经出现在岛屿地图中。"
       });
     }
 
@@ -1111,22 +1379,19 @@
         island: "coconut",
         icon: "🌧️",
         title: "雨林岛已解锁",
-        detail: "第五座岛已经开放，可以自由摆放雨林素材。"
+        detail: "第四座岛已经开放，可以自由摆放雨林素材。"
       });
     }
   }
 
   function completionMessage(island) {
     if (island === "nature") {
-      return "自然小木屋岛完成！机器人基地岛已经解锁";
+      return "自然小木屋岛完成！火星机器人基地岛已经解锁";
     }
     if (island === "robot") {
-      return "机器人基地岛完成！海底邮局岛已经解锁";
+      return "火星机器人基地岛完成！椰子岛已经解锁";
     }
-    if (island === "ocean") {
-      return "海底邮局岛完成！椰子岛已经解锁";
-    }
-    return "椰子岛完成！第五座雨林岛已经解锁";
+    return "椰子岛完成！第四座雨林岛已经解锁";
   }
 
   function addLog({ island, icon, title, detail }) {
@@ -1170,9 +1435,8 @@
   function switchIsland(island) {
     if (!isIslandUnlocked(island)) {
       const lockedMessages = {
-        robot: "完成自然小木屋岛后才能解锁机器人基地岛",
-        ocean: "完成机器人基地岛后才能解锁海底邮局岛",
-        coconut: "完成海底邮局岛后才能解锁椰子岛",
+        robot: "完成自然小木屋岛后才能解锁火星机器人基地岛",
+        coconut: "完成火星机器人基地岛后才能解锁椰子岛",
         rainforest: "完成椰子岛后才能解锁雨林岛"
       };
       showToast(lockedMessages[island] || "这座岛还没有解锁");
@@ -1274,7 +1538,6 @@
 
   $("#natureIslandCard").addEventListener("click", () => switchIsland("nature"));
   $("#robotIslandCard").addEventListener("click", () => switchIsland("robot"));
-  $("#oceanIslandCard").addEventListener("click", () => switchIsland("ocean"));
   $("#coconutIslandCard").addEventListener("click", () => switchIsland("coconut"));
   $("#rainforestIslandCard").addEventListener("click", () => switchIsland("rainforest"));
 
@@ -1332,7 +1595,16 @@
           : "自然小木屋正在一层一层地变得更温暖。",
         "彩虹滑梯": progress < 40
           ? "彩虹滑梯会在小木屋之后开始建设。"
-          : "彩虹滑梯正在一点点出现。"
+          : "彩虹滑梯正在一点点出现。",
+        "充电花园": progress < 6
+          ? "前几个任务会先点亮基础电路，随后全息能源花园会直接出现。"
+          : "这里已经变成会发光的全息能源花园，每次任务都会多一个新装置。",
+        "机械小伙伴": progress < 27
+          ? "任务推进后，会先出现一批科技模块，再迎来机械小伙伴。"
+          : "机械小伙伴正在巡视新解锁的装配模块和智能设备。",
+        "星星快递无人机": progress < 42
+          ? "继续完成任务，天空里会逐步出现无人机、卫星和信号装置。"
+          : "量子通讯网络已启动，新的无人机和星际设备会持续加入基地。"
       };
 
       showSceneTip(messages[place] || place);
@@ -1442,7 +1714,9 @@
       ).includes(String(materialId)),
     isIslandUnlocked,
     getIslandConfig: () => ISLANDS,
-    getMaxBuild: () => MAX_BUILD
+    getMaxBuild: island =>
+      maxBuildFor(island || state.currentIsland),
+    getBuildMaxes: () => ({ ...BUILD_MAXES })
   };
 
   rolloverDay();

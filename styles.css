@@ -2767,3 +2767,739 @@ body.rainforest-mode .app-shell > .workspace {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+
+/* v1.2.8 — 机器人岛趣味画面增强 */
+.robot-decor-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 22;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  pointer-events: none;
+  user-select: none;
+  opacity: var(--layer-opacity, 0);
+  clip-path: inset(var(--layer-clip, 100%) 0 0 0);
+  transform: translateY(var(--layer-shift, 8px)) scale(var(--layer-scale, .97));
+  transform-origin: center;
+  filter: drop-shadow(0 7px 8px rgba(55, 103, 112, .14));
+  transition:
+    opacity .65s ease,
+    clip-path .8s cubic-bezier(.2,.7,.2,1),
+    transform .8s cubic-bezier(.2,.7,.2,1),
+    filter .5s ease;
+}
+
+.robot-energy-garden-layer {
+  z-index: 20;
+  animation: robotEnergyGlow 3.2s ease-in-out infinite;
+}
+
+.robot-workshop-layer {
+  z-index: 21;
+}
+
+.robot-helperbots-layer {
+  z-index: 24;
+  animation: robotBuddyBob 2.8s ease-in-out infinite;
+}
+
+.robot-drone-layer {
+  z-index: 25;
+  animation: robotDroneFloat 3.4s ease-in-out infinite;
+}
+
+.robot-sparkles-layer {
+  z-index: 26;
+  animation: robotSparklePulse 2.2s ease-in-out infinite;
+}
+
+@keyframes robotEnergyGlow {
+  0%, 100% {
+    filter: drop-shadow(0 7px 8px rgba(55, 103, 112, .14)) brightness(1);
+  }
+  50% {
+    filter: drop-shadow(0 7px 11px rgba(77, 190, 210, .25)) brightness(1.08);
+  }
+}
+
+@keyframes robotBuddyBob {
+  0%, 100% {
+    transform: translateY(calc(var(--layer-shift, 8px) - 1px))
+      scale(var(--layer-scale, .97));
+  }
+  50% {
+    transform: translateY(calc(var(--layer-shift, 8px) + 3px))
+      scale(var(--layer-scale, .97));
+  }
+}
+
+@keyframes robotDroneFloat {
+  0%, 100% {
+    transform: translateY(calc(var(--layer-shift, 8px) - 4px))
+      scale(var(--layer-scale, .97));
+  }
+  50% {
+    transform: translateY(calc(var(--layer-shift, 8px) + 4px))
+      scale(var(--layer-scale, .97));
+  }
+}
+
+@keyframes robotSparklePulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 2px rgba(255,255,255,.35)) brightness(1);
+  }
+  50% {
+    filter: drop-shadow(0 0 8px rgba(255,220,105,.55)) brightness(1.18);
+  }
+}
+
+.robot-hotspot {
+  display: none;
+  z-index: 28;
+}
+
+.island-stage.robot-island .robot-hotspot {
+  display: block;
+}
+
+.robot-energy-hotspot {
+  left: 5%;
+  top: 52%;
+  width: 28%;
+  height: 29%;
+}
+
+.robot-buddies-hotspot {
+  left: 43%;
+  top: 51%;
+  width: 38%;
+  height: 29%;
+}
+
+.robot-drone-hotspot {
+  left: 36%;
+  top: 9%;
+  width: 26%;
+  height: 31%;
+}
+
+.island-stage.robot-island .robot-hotspot::after {
+  background: rgba(104, 200, 218, .30);
+}
+
+@media (max-width: 640px) {
+  .robot-energy-hotspot {
+    width: 32%;
+  }
+
+  .robot-buddies-hotspot {
+    left: 40%;
+    width: 43%;
+  }
+}
+
+/* v1.2.9 — 机器人岛科技感离散建造 */
+.robot-tech-grid {
+  position: absolute;
+  inset: 0;
+  z-index: 27;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.robot-tech-grid::before {
+  content: "";
+  position: absolute;
+  inset: 14% 8% 10%;
+  background:
+    radial-gradient(circle at 50% 55%, rgba(94, 210, 235, .08), transparent 36%),
+    linear-gradient(180deg, rgba(75, 200, 220, .05), transparent 38%),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0 48px,
+      rgba(90, 211, 231, .05) 48px 49px
+    );
+  opacity: .65;
+}
+
+.robot-tech-item {
+  --accent: #6fd8ff;
+  --glow: rgba(111,216,255,.24);
+  position: absolute;
+  left: calc(var(--x) * 1%);
+  top: calc(var(--y) * 1%);
+  width: calc(var(--w) * 1px);
+  height: calc(var(--h) * 1px);
+  transform: translate(-50%, -50%) scale(.28);
+  transform-origin: center;
+  opacity: 0;
+  filter: drop-shadow(0 0 0 transparent);
+  transition:
+    transform .28s cubic-bezier(.15,.9,.2,1.2),
+    opacity .18s ease-out,
+    filter .25s ease;
+}
+
+.robot-tech-item.is-unlocked {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  filter: drop-shadow(0 0 10px var(--glow));
+}
+
+.robot-tech-item::before,
+.robot-tech-item::after {
+  content: "";
+  position: absolute;
+  box-sizing: border-box;
+}
+
+.robot-tech-item.type-node::before {
+  inset: 2px;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle, #ffffff 0 20%, var(--accent) 28%, rgba(255,255,255,.06) 72%, transparent 100%);
+  box-shadow:
+    0 0 0 2px rgba(255,255,255,.20),
+    0 0 16px var(--glow);
+}
+
+.robot-tech-item.type-battery::before {
+  left: 22%;
+  top: 12%;
+  width: 56%;
+  height: 74%;
+  border-radius: 9px;
+  border: 2px solid rgba(255,255,255,.64);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.76), rgba(255,255,255,.08)),
+    linear-gradient(180deg, var(--accent), #07131b);
+  box-shadow: inset 0 0 0 2px rgba(255,255,255,.12), 0 0 10px var(--glow);
+}
+.robot-tech-item.type-battery::after {
+  left: 40%;
+  top: 2%;
+  width: 20%;
+  height: 10%;
+  border-radius: 4px 4px 0 0;
+  background: rgba(255,255,255,.85);
+}
+
+.robot-tech-item.type-crate::before {
+  inset: 10%;
+  border-radius: 8px;
+  border: 2px solid rgba(255,255,255,.60);
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.28), rgba(255,255,255,0) 42%),
+    linear-gradient(180deg, var(--accent), #08111b);
+  box-shadow: 0 0 10px var(--glow), inset 0 0 0 2px rgba(255,255,255,.06);
+}
+.robot-tech-item.type-crate::after {
+  left: 20%;
+  right: 20%;
+  top: 47%;
+  height: 2px;
+  background: rgba(255,255,255,.76);
+  box-shadow:
+    0 -8px 0 rgba(255,255,255,.24),
+    0 8px 0 rgba(255,255,255,.24);
+}
+
+.robot-tech-item.type-pillar::before {
+  left: 33%;
+  top: 8%;
+  width: 34%;
+  height: 84%;
+  border-radius: 999px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.94), var(--accent) 28%, rgba(14,24,32,.8) 100%);
+  box-shadow:
+    0 0 14px var(--glow),
+    inset 0 0 10px rgba(255,255,255,.16);
+}
+.robot-tech-item.type-pillar::after {
+  left: 18%;
+  right: 18%;
+  bottom: 2px;
+  height: 7px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.42);
+}
+
+.robot-tech-item.type-plant::before {
+  left: 46%;
+  bottom: 14%;
+  width: 8%;
+  height: 34%;
+  border-radius: 99px;
+  background: linear-gradient(180deg, rgba(255,255,255,.75), var(--accent));
+}
+.robot-tech-item.type-plant::after {
+  left: 12%;
+  top: 10%;
+  width: 76%;
+  height: 70%;
+  background:
+    radial-gradient(circle at 34% 40%, rgba(255,255,255,.95) 0 12%, var(--accent) 18%, transparent 24%),
+    radial-gradient(circle at 69% 54%, rgba(255,255,255,.95) 0 10%, var(--accent) 16%, transparent 22%),
+    radial-gradient(circle at 48% 24%, #ffffff 0 10%, transparent 16%);
+  filter: drop-shadow(0 0 8px var(--glow));
+}
+
+.robot-tech-item.type-panel::before {
+  left: 8%;
+  top: 16%;
+  width: 84%;
+  height: 62%;
+  border-radius: 9px;
+  border: 2px solid rgba(255,255,255,.62);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,.02)),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255,255,255,.10) 0 8px,
+      rgba(255,255,255,0) 8px 12px
+    ),
+    linear-gradient(180deg, var(--accent), #07111a);
+  box-shadow: inset 0 0 0 2px rgba(255,255,255,.06), 0 0 10px var(--glow);
+}
+.robot-tech-item.type-panel::after {
+  left: 42%;
+  bottom: 2%;
+  width: 16%;
+  height: 18%;
+  border-radius: 6px;
+  background: rgba(255,255,255,.72);
+}
+
+.robot-tech-item.type-orb::before {
+  inset: 10%;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 35% 30%, #ffffff 0 12%, var(--accent) 24%, var(--accent) 46%, rgba(0,0,0,0) 76%);
+  box-shadow:
+    0 0 14px var(--glow),
+    inset 0 0 6px rgba(255,255,255,.18);
+}
+.robot-tech-item.type-orb::after {
+  left: 18%;
+  right: 18%;
+  bottom: 0;
+  height: 5px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.42);
+}
+
+.robot-tech-item.type-bot::before {
+  left: 20%;
+  top: 14%;
+  width: 60%;
+  height: 58%;
+  border-radius: 10px;
+  border: 2px solid rgba(255,255,255,.62);
+  background:
+    radial-gradient(circle at 35% 35%, #fff 0 7%, transparent 10%),
+    radial-gradient(circle at 65% 35%, #fff 0 7%, transparent 10%),
+    linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.03)),
+    linear-gradient(180deg, var(--accent), #0a1117);
+  box-shadow: 0 0 10px var(--glow);
+}
+.robot-tech-item.type-bot::after {
+  left: 28%;
+  bottom: 8%;
+  width: 44%;
+  height: 18%;
+  border-radius: 10px;
+  background: rgba(255,255,255,.30);
+  box-shadow:
+    -10px -6px 0 -6px rgba(255,255,255,.66),
+    10px -6px 0 -6px rgba(255,255,255,.66);
+}
+
+.robot-tech-item.type-screen::before {
+  left: 8%;
+  top: 8%;
+  width: 84%;
+  height: 70%;
+  border-radius: 10px;
+  border: 2px solid rgba(255,255,255,.62);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,0)),
+    radial-gradient(circle at 35% 36%, rgba(255,255,255,.66) 0 2px, transparent 3px),
+    radial-gradient(circle at 58% 52%, rgba(255,255,255,.66) 0 2px, transparent 3px),
+    linear-gradient(135deg, rgba(255,255,255,.18), rgba(255,255,255,0) 34%),
+    linear-gradient(180deg, var(--accent), #08131a);
+  box-shadow: 0 0 10px var(--glow);
+}
+.robot-tech-item.type-screen::after {
+  left: 42%;
+  bottom: 2%;
+  width: 16%;
+  height: 16%;
+  border-radius: 4px;
+  background: rgba(255,255,255,.76);
+}
+
+.robot-tech-item.type-antenna::before {
+  left: 46%;
+  top: 6%;
+  width: 8%;
+  height: 78%;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(255,255,255,.90), var(--accent));
+}
+.robot-tech-item.type-antenna::after {
+  left: 32%;
+  top: 0;
+  width: 36%;
+  height: 24%;
+  border-radius: 999px;
+  background: radial-gradient(circle, #fff 0 16%, var(--accent) 28%, rgba(0,0,0,0) 78%);
+  box-shadow: 0 0 12px var(--glow);
+}
+
+.robot-tech-item.type-drone::before {
+  left: 28%;
+  top: 30%;
+  width: 44%;
+  height: 36%;
+  border-radius: 999px;
+  border: 2px solid rgba(255,255,255,.64);
+  background: linear-gradient(180deg, rgba(255,255,255,.28), var(--accent));
+  box-shadow: 0 0 10px var(--glow);
+}
+.robot-tech-item.type-drone::after {
+  left: 0;
+  top: 22%;
+  width: 100%;
+  height: 56%;
+  background:
+    radial-gradient(circle at 12% 50%, rgba(255,255,255,.9) 0 8%, transparent 10%),
+    radial-gradient(circle at 88% 50%, rgba(255,255,255,.9) 0 8%, transparent 10%),
+    linear-gradient(90deg, transparent 10%, rgba(255,255,255,.72) 10% 28%, transparent 28% 72%, rgba(255,255,255,.72) 72% 90%, transparent 90%);
+}
+
+.robot-tech-item.type-holo::before {
+  left: 10%;
+  top: 8%;
+  width: 80%;
+  height: 68%;
+  border-radius: 12px;
+  border: 2px solid rgba(255,255,255,.60);
+  background:
+    repeating-linear-gradient(
+      180deg,
+      rgba(255,255,255,.14) 0 6px,
+      rgba(255,255,255,0) 6px 10px
+    ),
+    radial-gradient(circle at 52% 50%, rgba(255,255,255,.34), rgba(255,255,255,0) 55%),
+    linear-gradient(180deg, rgba(0,0,0,0), var(--accent));
+  box-shadow: 0 0 12px var(--glow);
+}
+.robot-tech-item.type-holo::after {
+  left: 38%;
+  bottom: 0;
+  width: 24%;
+  height: 16%;
+  border-radius: 999px;
+  background: rgba(255,255,255,.65);
+}
+
+.robot-tech-item.type-signal::before {
+  left: 12%;
+  top: 12%;
+  width: 76%;
+  height: 76%;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at center, #ffffff 0 10%, var(--accent) 18%, transparent 24%),
+    radial-gradient(circle at center, transparent 36%, rgba(255,255,255,.56) 37% 40%, transparent 42%),
+    radial-gradient(circle at center, transparent 56%, rgba(255,255,255,.32) 57% 60%, transparent 62%);
+}
+.robot-tech-item.type-signal::after {
+  left: 46%;
+  bottom: 4%;
+  width: 8%;
+  height: 26%;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #fff, var(--accent));
+}
+
+.robot-tech-item.type-sat::before {
+  left: 28%;
+  top: 22%;
+  width: 44%;
+  height: 46%;
+  border-radius: 999px;
+  border: 2px solid rgba(255,255,255,.60);
+  background: linear-gradient(180deg, rgba(255,255,255,.20), var(--accent));
+}
+.robot-tech-item.type-sat::after {
+  left: 0;
+  top: 34%;
+  width: 100%;
+  height: 30%;
+  background:
+    linear-gradient(90deg, rgba(255,255,255,.72) 0 18%, transparent 18% 28%, rgba(255,255,255,.72) 28% 72%, transparent 72% 82%, rgba(255,255,255,.72) 82% 100%);
+  filter: drop-shadow(0 0 6px var(--glow));
+}
+
+.robot-tech-item.type-star::before {
+  inset: 10%;
+  background:
+    linear-gradient(90deg, transparent 43%, rgba(255,255,255,.94) 43% 57%, transparent 57%),
+    linear-gradient(180deg, transparent 43%, rgba(255,255,255,.94) 43% 57%, transparent 57%);
+  transform: rotate(45deg);
+  filter: drop-shadow(0 0 8px var(--glow));
+}
+.robot-tech-item.type-star::after {
+  inset: 20%;
+  border-radius: 999px;
+  background: radial-gradient(circle, #fff 0 24%, transparent 30%);
+}
+
+.robot-tech-item.is-unlocked.type-node,
+.robot-tech-item.is-unlocked.type-orb,
+.robot-tech-item.is-unlocked.type-star {
+  animation: robotTechPulse 2.6s ease-in-out infinite;
+}
+
+.robot-tech-item.is-unlocked.type-drone,
+.robot-tech-item.is-unlocked.type-sat {
+  animation: robotTechFloat 3.2s ease-in-out infinite;
+}
+
+.robot-tech-item.is-unlocked.type-signal,
+.robot-tech-item.is-unlocked.type-holo,
+.robot-tech-item.is-unlocked.type-screen {
+  animation: robotTechBlink 2.1s linear infinite;
+}
+
+@keyframes robotTechPulse {
+  0%, 100% { filter: drop-shadow(0 0 8px var(--glow)); }
+  50% { filter: drop-shadow(0 0 18px var(--glow)); }
+}
+
+@keyframes robotTechFloat {
+  0%, 100% { transform: translate(-50%, calc(-50% - 1px)) scale(1); }
+  50% { transform: translate(-50%, calc(-50% + 4px)) scale(1); }
+}
+
+@keyframes robotTechBlink {
+  0%, 100% { opacity: 1; }
+  48% { opacity: 1; }
+  50% { opacity: .72; }
+  52% { opacity: 1; }
+}
+
+/* v1.3.0 — 全部小岛使用离散建造 */
+.island-reveal-grid {
+  position: absolute;
+  inset: 0;
+  z-index: 22;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.island-build-item {
+  position: absolute;
+  left: calc(var(--x) * 1%);
+  top: calc(var(--y) * 1%);
+  width: calc(var(--size) * 1px);
+  height: calc(var(--size) * 1px);
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  transform:
+    translate(-50%, -50%)
+    rotate(var(--rotation))
+    scale(.12);
+  transform-origin: center;
+  transition:
+    opacity .12s ease-out,
+    transform .30s cubic-bezier(.15,.9,.18,1.28);
+  user-select: none;
+}
+
+.island-build-item > span {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  font-size: calc(var(--size) * .84px);
+  line-height: 1;
+}
+
+.island-build-item.is-unlocked {
+  opacity: 1;
+  transform:
+    translate(-50%, -50%)
+    rotate(var(--rotation))
+    scale(1);
+}
+
+.nature-reveal-grid .island-build-item {
+  filter:
+    drop-shadow(0 4px 3px rgba(55,103,45,.23))
+    drop-shadow(0 0 4px rgba(255,232,127,.18));
+}
+
+.ocean-reveal-grid .island-build-item {
+  filter:
+    drop-shadow(0 4px 4px rgba(20,94,123,.24))
+    drop-shadow(0 0 6px rgba(96,226,242,.26));
+}
+
+.coconut-reveal-grid .island-build-item {
+  filter:
+    drop-shadow(0 4px 3px rgba(83,89,40,.21))
+    drop-shadow(0 0 5px rgba(255,214,102,.23));
+}
+
+.ocean-reveal-grid .island-build-item:nth-child(3n).is-unlocked {
+  animation: discreteOceanFloat 3.2s ease-in-out infinite;
+}
+
+.nature-reveal-grid .island-build-item:nth-child(4n).is-unlocked,
+.coconut-reveal-grid .island-build-item:nth-child(4n).is-unlocked {
+  animation: discreteIslandWiggle 3.6s ease-in-out infinite;
+}
+
+@keyframes discreteOceanFloat {
+  0%, 100% {
+    transform:
+      translate(-50%, calc(-50% - 1px))
+      rotate(var(--rotation))
+      scale(1);
+  }
+  50% {
+    transform:
+      translate(-50%, calc(-50% + 4px))
+      rotate(var(--rotation))
+      scale(1);
+  }
+}
+
+@keyframes discreteIslandWiggle {
+  0%, 100% {
+    transform:
+      translate(-50%, -50%)
+      rotate(var(--rotation))
+      scale(1);
+  }
+  50% {
+    transform:
+      translate(-50%, -50%)
+      rotate(calc(var(--rotation) + 4deg))
+      scale(1.04);
+  }
+}
+
+.island-stage.is-complete .final-scene {
+  z-index: 29;
+  opacity: 1 !important;
+}
+
+.island-stage.is-complete .island-reveal-grid,
+.island-stage.is-complete .robot-tech-grid,
+.island-stage.is-complete .robot-decor-layer {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.robot-mars-final {
+  object-position: center center;
+}
+
+.island-stage.robot-island .build-stage-badge {
+  color: #98492c;
+  background: rgba(255,248,238,.91);
+  box-shadow:
+    0 8px 24px rgba(126,55,31,.16),
+    inset 0 0 0 1px rgba(255,134,76,.20);
+}
+
+.island-stage.robot-island:not(.is-complete) .robot-world::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  inset: 47% 0 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 16% 60%, rgba(255,143,78,.15), transparent 18%),
+    radial-gradient(circle at 82% 55%, rgba(255,112,62,.12), transparent 20%),
+    linear-gradient(180deg, rgba(255,112,61,0), rgba(106,36,25,.08));
+  mix-blend-mode: multiply;
+}
+
+@media (max-width: 640px) {
+  .island-build-item {
+    width: calc(var(--size) * .80px);
+    height: calc(var(--size) * .80px);
+  }
+
+  .island-build-item > span {
+    font-size: calc(var(--size) * .67px);
+  }
+}
+
+/* v1.3.1 — 最终效果与建设过程使用同一套真实分层素材 */
+.coherent-build-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 8;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.coherent-build-part {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  visibility: hidden;
+  transform: scale(.82);
+  transform-origin: center;
+  pointer-events: none;
+  user-select: none;
+}
+
+.coherent-build-part.is-visible {
+  visibility: visible;
+  transform: scale(1);
+  animation: coherentPartPop .24s cubic-bezier(.15,.9,.2,1.25) both;
+}
+
+@keyframes coherentPartPop {
+  from { transform: scale(.82); }
+  to { transform: scale(1); }
+}
+
+/* 完成状态不再切换另一张最终图，画面就是所有分层的累积结果。 */
+.island-stage.is-complete .scene-base,
+.island-stage.is-complete .coherent-build-layer {
+  opacity: 1;
+  visibility: visible;
+}
+
+.island-stage.is-complete .final-scene,
+.island-stage.is-complete .construction-layer,
+.island-stage.is-complete .robot-decor-layer,
+.island-stage.is-complete .robot-tech-grid,
+.island-stage.is-complete .island-reveal-grid {
+  display: none !important;
+}
+
+.island-stage.robot-island .build-stage-badge {
+  color: #8f452b;
+  background: rgba(255,248,239,.92);
+  box-shadow:
+    0 8px 24px rgba(126,55,31,.16),
+    inset 0 0 0 1px rgba(255,134,76,.22);
+}
