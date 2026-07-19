@@ -1,11 +1,15 @@
-const CACHE_NAME = "star-sprout-production-v1-3-3";
-const APP_ASSETS = [
+const CACHE_NAME = "star-sprout-production-v1-3-4";
+
+const CORE_ASSETS = [
   "./",
   "./index.html",
-  "./styles.css?v=1.3.3",
-  "./app.js?v=1.3.3",
-  "./rainforest.js?v=1.3.3",
-  "./manifest.webmanifest",
+  "./styles.css?v=1.3.4",
+  "./app.js?v=1.3.4",
+  "./rainforest.js?v=1.3.4",
+  "./manifest.webmanifest"
+];
+
+const OPTIONAL_ASSETS = [
   "./assets/coconut-island-base.jpg",
   "./assets/coconut-island-complete.jpg",
   "./assets/coconut-layer-animals.png",
@@ -108,27 +112,45 @@ const APP_ASSETS = [
   "./assets/robot-build-16.png",
   "./assets/robot-build-17.png",
   "./assets/robot-build-18.png",
-  "./assets/robot-build-19.png",
+  "./assets/robot-build-19.png"
 ];
 
 self.addEventListener("install", event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(APP_ASSETS))
-  );
-  self.skipWaiting();
+  event.waitUntil((async () => {
+    const cache = await caches.open(CACHE_NAME);
+
+    // 核心页面必须成功缓存。
+    await cache.addAll(CORE_ASSETS);
+
+    // 单个图片素材失败时，不再阻止整个新版 Service Worker 安装。
+    const results = await Promise.allSettled(
+      OPTIONAL_ASSETS.map(asset => cache.add(asset))
+    );
+
+    const failed = results
+      .map((result, index) => result.status === "rejected"
+        ? OPTIONAL_ASSETS[index]
+        : null)
+      .filter(Boolean);
+
+    if (failed.length) {
+      console.warn("部分可选素材暂未缓存：", failed);
+    }
+
+    await self.skipWaiting();
+  })());
 });
 
 self.addEventListener("activate", event => {
-  event.waitUntil(
-    caches.keys().then(keys =>
-      Promise.all(
-        keys
-          .filter(key => key !== CACHE_NAME)
-          .map(key => caches.delete(key))
-      )
-    )
-  );
-  self.clients.claim();
+  event.waitUntil((async () => {
+    const keys = await caches.keys();
+    await Promise.all(
+      keys
+        .filter(key => key !== CACHE_NAME)
+        .map(key => caches.delete(key))
+    );
+    await self.clients.claim();
+  })());
 });
 
 self.addEventListener("fetch", event => {
@@ -139,9 +161,9 @@ self.addEventListener("fetch", event => {
       fetch(event.request)
         .then(response => {
           if (response && response.ok) {
-            caches
-              .open(CACHE_NAME)
-              .then(cache => cache.put("./index.html", response.clone()));
+            caches.open(CACHE_NAME).then(cache => {
+              cache.put("./index.html", response.clone());
+            });
           }
           return response;
         })
@@ -150,20 +172,20 @@ self.addEventListener("fetch", event => {
     return;
   }
 
-  event.respondWith(
-    caches.match(event.request).then(cached => {
-      const network = fetch(event.request)
-        .then(response => {
-          if (response && response.ok) {
-            caches
-              .open(CACHE_NAME)
-              .then(cache => cache.put(event.request, response.clone()));
-          }
-          return response;
-        })
-        .catch(() => cached);
+  event.respondWith((async () => {
+    const cached = await caches.match(event.request);
 
-      return cached || network;
-    })
-  );
+    const networkPromise = fetch(event.request)
+      .then(response => {
+        if (response && response.ok) {
+          caches.open(CACHE_NAME).then(cache => {
+            cache.put(event.request, response.clone());
+          });
+        }
+        return response;
+      })
+      .catch(() => cached);
+
+    return cached || networkPromise;
+  })());
 });
