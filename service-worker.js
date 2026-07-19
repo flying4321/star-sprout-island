@@ -1,10 +1,10 @@
-const CACHE_NAME = "star-sprout-production-v1-3-2";
+const CACHE_NAME = "star-sprout-production-v1-3-3";
 const APP_ASSETS = [
   "./",
   "./index.html",
-  "./styles.css?v=1.3.2",
-  "./app.js?v=1.3.2",
-  "./rainforest.js?v=1.3.2",
+  "./styles.css?v=1.3.3",
+  "./app.js?v=1.3.3",
+  "./rainforest.js?v=1.3.3",
   "./manifest.webmanifest",
   "./assets/coconut-island-base.jpg",
   "./assets/coconut-island-complete.jpg",

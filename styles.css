@@ -3503,3 +3503,16 @@ body.rainforest-mode .app-shell > .workspace {
     0 8px 24px rgba(126,55,31,.16),
     inset 0 0 0 1px rgba(255,134,76,.22);
 }
+
+/* v1.3.3 — 椰子岛场景层级防回归 */
+#islandStage > .scene-world,
+#islandStage > .robot-world,
+#islandStage > .coconut-world,
+#islandStage > .rainforest-world {
+  position: absolute;
+  inset: 0;
+}
+
+.island-stage.coconut-island > .coconut-world {
+  display: block;
+}
