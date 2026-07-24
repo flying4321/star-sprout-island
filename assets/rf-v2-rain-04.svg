@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+<title id="title">斜雨</title>
+<desc id="desc">星芽岛雨林素材：斜雨</desc>
+
+<defs>
+  <linearGradient id="water" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#65d6e8"/><stop offset=".55" stop-color="#208ec5"/><stop offset="1" stop-color="#14599e"/>
+  </linearGradient>
+  <linearGradient id="leaf" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#8ed84c"/><stop offset=".55" stop-color="#3b9f3d"/><stop offset="1" stop-color="#176b38"/>
+  </linearGradient>
+  <linearGradient id="leafDark" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#4eb44a"/><stop offset="1" stop-color="#0e5638"/>
+  </linearGradient>
+  <linearGradient id="wood" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#6c3e21"/><stop offset=".5" stop-color="#a96b35"/><stop offset="1" stop-color="#4c2b1a"/>
+  </linearGradient>
+  <linearGradient id="mud" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#9b7044"/><stop offset=".6" stop-color="#704728"/><stop offset="1" stop-color="#4b301f"/>
+  </linearGradient>
+  <linearGradient id="drop" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#f1ffff" stop-opacity=".98"/><stop offset=".45" stop-color="#75d8f2" stop-opacity=".9"/><stop offset="1" stop-color="#258dcc" stop-opacity=".9"/>
+  </linearGradient>
+  <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%">
+    <feDropShadow dx="0" dy="9" stdDeviation="8" flood-color="#12382d" flood-opacity=".30"/>
+  </filter>
+  <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+    <feGaussianBlur stdDeviation="5"/>
+  </filter>
+</defs>
+
+<g filter="url(#shadow)" stroke-linecap="round" stroke-linejoin="round">
+<path d="M115 150 C125 95 175 75 220 105 C245 55 330 60 350 120 C410 112 438 160 420 205 H115 C70 205 72 160 115 150Z" fill="#d9eff0" stroke="#477a83" stroke-width="8" opacity=".88"/><path d="M60.0 200.0 l18.8 35.3" stroke="#8fe7ff" stroke-width="6" opacity="0.88"/><path d="M193.2 316.6 l23.5 44.1" stroke="#8fe7ff" stroke-width="6" opacity="0.88"/><path d="M326.4 219.8 l28.2 53.0" stroke="#8fe7ff" stroke-width="6" opacity="0.88"/><path d="M96.0 336.4 l32.9 61.8" stroke="#8fe7ff" stroke-width="6" opacity="0.88"/><path d="M229.2 239.6 l18.8 35.3" stroke="#8fe7ff" stroke-width="6" opacity="0.88"/><path d="M362.4 356.2 l23.5 44.1" stroke="#8fe7ff" stroke-width="6" opacity="0.88"/><path d="M132.0 259.4 l28.2 53.0" stroke="#8fe7ff" stroke-width="6" opacity="0.88"/><path d="M265.2 376.0 l32.9 61.8" stroke="#8fe7ff" stroke-width="6" opacity="0.88"/><path d="M398.4 279.2 l18.8 35.3" stroke="#8fe7ff" stroke-width="6" opacity="0.88"/><path d="M168.0 395.8 l23.5 44.1" stroke="#8fe7ff" stroke-width="6" opacity="0.88"/><path d="M301.2 299.0 l28.2 53.0" stroke="#8fe7ff" stroke-width="6" opacity="0.88"/><path d="M70.8 202.2 l32.9 61.8" stroke="#8fe7ff" stroke-width="6" opacity="0.88"/><path d="M204.0 318.8 l18.8 35.3" stroke="#8fe7ff" stroke-width="6" opacity="0.88"/><path d="M337.2 222.0 l23.5 44.1" stroke="#8fe7ff" stroke-width="6" opacity="0.88"/><path d="M106.8 338.6 l28.2 53.0" stroke="#8fe7ff" stroke-width="6" opacity="0.88"/><path d="M240.0 241.8 l32.9 61.8" stroke="#8fe7ff" stroke-width="6" opacity="0.88"/><path d="M373.2 358.4 l18.8 35.3" stroke="#8fe7ff" stroke-width="6" opacity="0.88"/><path d="M142.8 261.6 l23.5 44.1" stroke="#8fe7ff" stroke-width="6" opacity="0.88"/><path d="M276.0 378.2 l28.2 53.0" stroke="#8fe7ff" stroke-width="6" opacity="0.88"/><path d="M409.2 281.4 l32.9 61.8" stroke="#8fe7ff" stroke-width="6" opacity="0.88"/><path d="M178.8 398.0 l18.8 35.3" stroke="#8fe7ff" stroke-width="6" opacity="0.88"/><path d="M312.0 301.2 l23.5 44.1" stroke="#8fe7ff" stroke-width="6" opacity="0.88"/><path d="M81.6 204.4 l28.2 53.0" stroke="#8fe7ff" stroke-width="6" opacity="0.88"/><path d="M214.8 321.0 l32.9 61.8" stroke="#8fe7ff" stroke-width="6" opacity="0.88"/><path d="M348.0 224.2 l18.8 35.3" stroke="#8fe7ff" stroke-width="6" opacity="0.88"/><path d="M117.6 340.8 l23.5 44.1" stroke="#8fe7ff" stroke-width="6" opacity="0.88"/><path d="M250.8 244.0 l28.2 53.0" stroke="#8fe7ff" stroke-width="6" opacity="0.88"/><path d="M384.0 360.6 l32.9 61.8" stroke="#8fe7ff" stroke-width="6" opacity="0.88"/><path d="M153.6 263.8 l18.8 35.3" stroke="#8fe7ff" stroke-width="6" opacity="0.88"/><path d="M286.8 380.4 l23.5 44.1" stroke="#8fe7ff" stroke-width="6" opacity="0.88"/><path d="M420.0 283.6 l28.2 53.0" stroke="#8fe7ff" stroke-width="6" opacity="0.88"/><path d="M189.6 400.2 l32.9 61.8" stroke="#8fe7ff" stroke-width="6" opacity="0.88"/>
+</g>
+</svg>

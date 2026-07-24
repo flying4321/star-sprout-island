@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+<title id="title">参天古树</title>
+<desc id="desc">星芽岛雨林素材：参天古树</desc>
+
+<defs>
+  <linearGradient id="water" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#65d6e8"/><stop offset=".55" stop-color="#208ec5"/><stop offset="1" stop-color="#14599e"/>
+  </linearGradient>
+  <linearGradient id="leaf" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#8ed84c"/><stop offset=".55" stop-color="#3b9f3d"/><stop offset="1" stop-color="#176b38"/>
+  </linearGradient>
+  <linearGradient id="leafDark" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#4eb44a"/><stop offset="1" stop-color="#0e5638"/>
+  </linearGradient>
+  <linearGradient id="wood" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#6c3e21"/><stop offset=".5" stop-color="#a96b35"/><stop offset="1" stop-color="#4c2b1a"/>
+  </linearGradient>
+  <linearGradient id="mud" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#9b7044"/><stop offset=".6" stop-color="#704728"/><stop offset="1" stop-color="#4b301f"/>
+  </linearGradient>
+  <linearGradient id="drop" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#f1ffff" stop-opacity=".98"/><stop offset=".45" stop-color="#75d8f2" stop-opacity=".9"/><stop offset="1" stop-color="#258dcc" stop-opacity=".9"/>
+  </linearGradient>
+  <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%">
+    <feDropShadow dx="0" dy="9" stdDeviation="8" flood-color="#12382d" flood-opacity=".30"/>
+  </filter>
+  <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+    <feGaussianBlur stdDeviation="5"/>
+  </filter>
+</defs>
+
+<g filter="url(#shadow)" stroke-linecap="round" stroke-linejoin="round">
+<ellipse cx="256" cy="448" rx="185" ry="30" fill="#315f31" opacity=".45"/><polygon points="215.0,447 240.94,77 295.06,77 297.0,447" fill="url(#wood)" stroke="#4c2b1a" stroke-width="9"/><path d="M241.24 427 Q263.9 137 268 85" fill="none" stroke="#d09352" stroke-width="7" opacity=".55"/><circle cx="205.2" cy="97.2" r="48.384" fill="#3ba84b" stroke="#145b32" stroke-width="7"/><circle cx="237.6" cy="62.64" r="57.2832" fill="#237a3b" stroke="#145b32" stroke-width="7"/><circle cx="280.8" cy="48.24" r="57.024" fill="#4bb552" stroke="#145b32" stroke-width="7"/><circle cx="324.0" cy="75.6" r="49.7664" fill="#2e8f3e" stroke="#145b32" stroke-width="7"/><circle cx="340.56" cy="114.48" r="45.5328" fill="#3ba84b" stroke="#145b32" stroke-width="7"/><circle cx="290.16" cy="110.16" r="61.559999999999995" fill="#237a3b" stroke="#145b32" stroke-width="7"/><circle cx="237.6" cy="120.24" r="56.678399999999996" fill="#4bb552" stroke="#145b32" stroke-width="7"/><path d="M260 255 Q205 210 155 170 M276 230 Q340 195 390 155" fill="none" stroke="#704321" stroke-width="25"/>
+</g>
+</svg>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+<title id="title">成年巨骨舌鱼</title>
+<desc id="desc">星芽岛雨林素材：成年巨骨舌鱼</desc>
+
+<defs>
+  <linearGradient id="water" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#65d6e8"/><stop offset=".55" stop-color="#208ec5"/><stop offset="1" stop-color="#14599e"/>
+  </linearGradient>
+  <linearGradient id="leaf" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#8ed84c"/><stop offset=".55" stop-color="#3b9f3d"/><stop offset="1" stop-color="#176b38"/>
+  </linearGradient>
+  <linearGradient id="leafDark" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#4eb44a"/><stop offset="1" stop-color="#0e5638"/>
+  </linearGradient>
+  <linearGradient id="wood" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#6c3e21"/><stop offset=".5" stop-color="#a96b35"/><stop offset="1" stop-color="#4c2b1a"/>
+  </linearGradient>
+  <linearGradient id="mud" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#9b7044"/><stop offset=".6" stop-color="#704728"/><stop offset="1" stop-color="#4b301f"/>
+  </linearGradient>
+  <linearGradient id="drop" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#f1ffff" stop-opacity=".98"/><stop offset=".45" stop-color="#75d8f2" stop-opacity=".9"/><stop offset="1" stop-color="#258dcc" stop-opacity=".9"/>
+  </linearGradient>
+  <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%">
+    <feDropShadow dx="0" dy="9" stdDeviation="8" flood-color="#12382d" flood-opacity=".30"/>
+  </filter>
+  <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+    <feGaussianBlur stdDeviation="5"/>
+  </filter>
+</defs>
+
+<g filter="url(#shadow)" stroke-linecap="round" stroke-linejoin="round">
+<ellipse cx="260" cy="310" rx="220" ry="105" fill="#2b9fbd" opacity=".13"/><g transform="translate(260 270) scale(1.05 1.05)"><ellipse cx="0" cy="0" rx="78" ry="27" fill="#657178" stroke="#542a25" stroke-width="6"/><path d="M-76 0 L-118 -34 L-115 34 Z" fill="#ef7650" stroke="#542a25" stroke-width="6"/><path d="M-8 -24 Q15 -52 36 -25" fill="#ef7650" stroke="#542a25" stroke-width="5"/><circle cx="55" cy="-7" r="7" fill="#fff"/><circle cx="57" cy="-7" r="3.5" fill="#111"/><path d="M66 8 Q83 15 70 24" fill="none" stroke="#542a25" stroke-width="4"/><circle cx="-30" cy="-12" r="5" fill="#5b2d38" opacity=".65"/><circle cx="-7" cy="0" r="7" fill="#5b2d38" opacity=".65"/><circle cx="16" cy="12" r="5" fill="#5b2d38" opacity=".65"/><circle cx="39" cy="-12" r="7" fill="#5b2d38" opacity=".65"/><circle cx="-8" cy="0" r="5" fill="#5b2d38" opacity=".65"/><circle cx="15" cy="12" r="7" fill="#5b2d38" opacity=".65"/><circle cx="38" cy="-12" r="5" fill="#5b2d38" opacity=".65"/></g>
+</g>
+</svg>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+<title id="title">大王花群</title>
+<desc id="desc">星芽岛雨林素材：大王花群</desc>
+
+<defs>
+  <linearGradient id="water" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#65d6e8"/><stop offset=".55" stop-color="#208ec5"/><stop offset="1" stop-color="#14599e"/>
+  </linearGradient>
+  <linearGradient id="leaf" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#8ed84c"/><stop offset=".55" stop-color="#3b9f3d"/><stop offset="1" stop-color="#176b38"/>
+  </linearGradient>
+  <linearGradient id="leafDark" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#4eb44a"/><stop offset="1" stop-color="#0e5638"/>
+  </linearGradient>
+  <linearGradient id="wood" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#6c3e21"/><stop offset=".5" stop-color="#a96b35"/><stop offset="1" stop-color="#4c2b1a"/>
+  </linearGradient>
+  <linearGradient id="mud" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#9b7044"/><stop offset=".6" stop-color="#704728"/><stop offset="1" stop-color="#4b301f"/>
+  </linearGradient>
+  <linearGradient id="drop" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#f1ffff" stop-opacity=".98"/><stop offset=".45" stop-color="#75d8f2" stop-opacity=".9"/><stop offset="1" stop-color="#258dcc" stop-opacity=".9"/>
+  </linearGradient>
+  <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%">
+    <feDropShadow dx="0" dy="9" stdDeviation="8" flood-color="#12382d" flood-opacity=".30"/>
+  </filter>
+  <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+    <feGaussianBlur stdDeviation="5"/>
+  </filter>
+</defs>
+
+<g filter="url(#shadow)" stroke-linecap="round" stroke-linejoin="round">
+<ellipse cx="256" cy="408" rx="180" ry="40" fill="#35643a" opacity=".45"/><ellipse cx="165" cy="271.0" rx="37.099999999999994" ry="52.5" transform="rotate(0 165 320)" fill="#d94d55" stroke="#702737" stroke-width="5.6"/><ellipse cx="165" cy="271.0" rx="37.099999999999994" ry="52.5" transform="rotate(72 165 320)" fill="#d94d55" stroke="#702737" stroke-width="5.6"/><ellipse cx="165" cy="271.0" rx="37.099999999999994" ry="52.5" transform="rotate(144 165 320)" fill="#d94d55" stroke="#702737" stroke-width="5.6"/><ellipse cx="165" cy="271.0" rx="37.099999999999994" ry="52.5" transform="rotate(216 165 320)" fill="#d94d55" stroke="#702737" stroke-width="5.6"/><ellipse cx="165" cy="271.0" rx="37.099999999999994" ry="52.5" transform="rotate(288 165 320)" fill="#d94d55" stroke="#702737" stroke-width="5.6"/><circle cx="165" cy="320" r="40.599999999999994" fill="#7b2c3c" stroke="#54202e" stroke-width="5.6"/><circle cx="165" cy="320" r="21.7" fill="#2f1721"/><circle cx="194.4" cy="320.0" r="3.5" fill="#f5c56d"/><circle cx="191.9" cy="332.0" r="3.5" fill="#f5c56d"/><circle cx="184.7" cy="341.8" r="3.5" fill="#f5c56d"/><circle cx="174.1" cy="348.0" r="3.5" fill="#f5c56d"/><circle cx="161.9" cy="349.2" r="3.5" fill="#f5c56d"/><circle cx="150.3" cy="345.5" r="3.5" fill="#f5c56d"/><circle cx="141.2" cy="337.3" r="3.5" fill="#f5c56d"/><circle cx="136.2" cy="326.1" r="3.5" fill="#f5c56d"/><circle cx="136.2" cy="313.9" r="3.5" fill="#f5c56d"/><circle cx="141.2" cy="302.7" r="3.5" fill="#f5c56d"/><circle cx="150.3" cy="294.5" r="3.5" fill="#f5c56d"/><circle cx="161.9" cy="290.8" r="3.5" fill="#f5c56d"/><circle cx="174.1" cy="292.0" r="3.5" fill="#f5c56d"/><circle cx="184.7" cy="298.2" r="3.5" fill="#f5c56d"/><circle cx="191.9" cy="308.0" r="3.5" fill="#f5c56d"/><ellipse cx="315" cy="225.5" rx="45.05" ry="63.75" transform="rotate(0 315 285)" fill="#d94d55" stroke="#702737" stroke-width="6.8"/><ellipse cx="315" cy="225.5" rx="45.05" ry="63.75" transform="rotate(72 315 285)" fill="#d94d55" stroke="#702737" stroke-width="6.8"/><ellipse cx="315" cy="225.5" rx="45.05" ry="63.75" transform="rotate(144 315 285)" fill="#d94d55" stroke="#702737" stroke-width="6.8"/><ellipse cx="315" cy="225.5" rx="45.05" ry="63.75" transform="rotate(216 315 285)" fill="#d94d55" stroke="#702737" stroke-width="6.8"/><ellipse cx="315" cy="225.5" rx="45.05" ry="63.75" transform="rotate(288 315 285)" fill="#d94d55" stroke="#702737" stroke-width="6.8"/><circle cx="315" cy="285" r="49.3" fill="#7b2c3c" stroke="#54202e" stroke-width="6.8"/><circle cx="315" cy="285" r="26.349999999999998" fill="#2f1721"/><circle cx="350.7" cy="285.0" r="4.25" fill="#f5c56d"/><circle cx="347.6" cy="299.5" r="4.25" fill="#f5c56d"/><circle cx="338.9" cy="311.5" r="4.25" fill="#f5c56d"/><circle cx="326.0" cy="319.0" r="4.25" fill="#f5c56d"/><circle cx="311.3" cy="320.5" r="4.25" fill="#f5c56d"/><circle cx="297.2" cy="315.9" r="4.25" fill="#f5c56d"/><circle cx="286.1" cy="306.0" r="4.25" fill="#f5c56d"/><circle cx="280.1" cy="292.4" r="4.25" fill="#f5c56d"/><circle cx="280.1" cy="277.6" r="4.25" fill="#f5c56d"/><circle cx="286.1" cy="264.0" r="4.25" fill="#f5c56d"/><circle cx="297.1" cy="254.1" r="4.25" fill="#f5c56d"/><circle cx="311.3" cy="249.5" r="4.25" fill="#f5c56d"/><circle cx="326.0" cy="251.0" r="4.25" fill="#f5c56d"/><circle cx="338.9" cy="258.5" r="4.25" fill="#f5c56d"/><circle cx="347.6" cy="270.5" r="4.25" fill="#f5c56d"/><ellipse cx="350" cy="375" rx="28.6" ry="40.56" fill="#9d3146" stroke="#642238" stroke-width="4.16"/><path d="M328.16 359.4 Q350 325.6 371.84 359.4" fill="#d95563" stroke="#642238" stroke-width="3.12"/>
+</g>
+</svg>

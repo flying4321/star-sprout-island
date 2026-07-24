@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+<title id="title">板根古树</title>
+<desc id="desc">星芽岛雨林素材：板根古树</desc>
+
+<defs>
+  <linearGradient id="water" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#65d6e8"/><stop offset=".55" stop-color="#208ec5"/><stop offset="1" stop-color="#14599e"/>
+  </linearGradient>
+  <linearGradient id="leaf" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#8ed84c"/><stop offset=".55" stop-color="#3b9f3d"/><stop offset="1" stop-color="#176b38"/>
+  </linearGradient>
+  <linearGradient id="leafDark" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#4eb44a"/><stop offset="1" stop-color="#0e5638"/>
+  </linearGradient>
+  <linearGradient id="wood" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#6c3e21"/><stop offset=".5" stop-color="#a96b35"/><stop offset="1" stop-color="#4c2b1a"/>
+  </linearGradient>
+  <linearGradient id="mud" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#9b7044"/><stop offset=".6" stop-color="#704728"/><stop offset="1" stop-color="#4b301f"/>
+  </linearGradient>
+  <linearGradient id="drop" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#f1ffff" stop-opacity=".98"/><stop offset=".45" stop-color="#75d8f2" stop-opacity=".9"/><stop offset="1" stop-color="#258dcc" stop-opacity=".9"/>
+  </linearGradient>
+  <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%">
+    <feDropShadow dx="0" dy="9" stdDeviation="8" flood-color="#12382d" flood-opacity=".30"/>
+  </filter>
+  <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+    <feGaussianBlur stdDeviation="5"/>
+  </filter>
+</defs>
+
+<g filter="url(#shadow)" stroke-linecap="round" stroke-linejoin="round">
+<ellipse cx="256" cy="448" rx="185" ry="30" fill="#315f31" opacity=".45"/><polygon points="206.0,438 215.0,138 281.0,138 306.0,438" fill="url(#wood)" stroke="#4c2b1a" stroke-width="9"/><path d="M238.0 418 Q243.0 198 248 146" fill="none" stroke="#d09352" stroke-width="7" opacity=".55"/><path d="M218 390 L120 450 L235 435 Z M292 390 L392 450 L278 435 Z" fill="#82522c" stroke="#4c2b1a" stroke-width="9"/><circle cx="175.3" cy="153.3" r="52.29" fill="#2e8f3e" stroke="#145b32" stroke-width="7"/><circle cx="212.65" cy="113.46000000000001" r="62.15039999999999" fill="#3ba84b" stroke="#145b32" stroke-width="7"/><circle cx="262.45" cy="96.86" r="74.5008" fill="#237a3b" stroke="#145b32" stroke-width="7"/><circle cx="312.25" cy="128.4" r="53.784" fill="#4bb552" stroke="#145b32" stroke-width="7"/><circle cx="331.34" cy="173.22" r="49.4016" fill="#2e8f3e" stroke="#145b32" stroke-width="7"/><circle cx="273.24" cy="168.24" r="80.42699999999999" fill="#3ba84b" stroke="#145b32" stroke-width="7"/><circle cx="212.65" cy="179.86" r="61.254000000000005" fill="#237a3b" stroke="#145b32" stroke-width="7"/>
+</g>
+</svg>

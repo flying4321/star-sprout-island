@@ -1,0 +1,19 @@
+{
+  "version": "1.3.5",
+  "variant_count": 80,
+  "svg_count": 80,
+  "unique_svg_hashes": 80,
+  "node_checks": [
+    [
+      "rainforest.js",
+      0,
+      ""
+    ],
+    [
+      "service-worker.js",
+      0,
+      ""
+    ]
+  ],
+  "files_in_package": 85
+}

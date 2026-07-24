@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+<title id="title">蓝闪蝶</title>
+<desc id="desc">星芽岛雨林素材：蓝闪蝶</desc>
+
+<defs>
+  <linearGradient id="water" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#65d6e8"/><stop offset=".55" stop-color="#208ec5"/><stop offset="1" stop-color="#14599e"/>
+  </linearGradient>
+  <linearGradient id="leaf" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#8ed84c"/><stop offset=".55" stop-color="#3b9f3d"/><stop offset="1" stop-color="#176b38"/>
+  </linearGradient>
+  <linearGradient id="leafDark" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#4eb44a"/><stop offset="1" stop-color="#0e5638"/>
+  </linearGradient>
+  <linearGradient id="wood" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#6c3e21"/><stop offset=".5" stop-color="#a96b35"/><stop offset="1" stop-color="#4c2b1a"/>
+  </linearGradient>
+  <linearGradient id="mud" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#9b7044"/><stop offset=".6" stop-color="#704728"/><stop offset="1" stop-color="#4b301f"/>
+  </linearGradient>
+  <linearGradient id="drop" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#f1ffff" stop-opacity=".98"/><stop offset=".45" stop-color="#75d8f2" stop-opacity=".9"/><stop offset="1" stop-color="#258dcc" stop-opacity=".9"/>
+  </linearGradient>
+  <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%">
+    <feDropShadow dx="0" dy="9" stdDeviation="8" flood-color="#12382d" flood-opacity=".30"/>
+  </filter>
+  <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+    <feGaussianBlur stdDeviation="5"/>
+  </filter>
+</defs>
+
+<g filter="url(#shadow)" stroke-linecap="round" stroke-linejoin="round">
+<ellipse cx="255" cy="275" rx="18" ry="95" fill="#352a45"/><path d="M238 260 C145 120 70 185 120 300 C150 360 205 325 238 285Z" fill="#3b78e0" stroke="#34275d" stroke-width="9"/><path d="M272 260 C365 120 440 185 390 300 C360 360 305 325 272 285Z" fill="#3b78e0" stroke="#34275d" stroke-width="9"/><path d="M238 300 C170 285 145 370 220 405 L248 330Z" fill="#42b9ed" stroke="#34275d" stroke-width="8"/><path d="M272 300 C340 285 365 370 290 405 L262 330Z" fill="#42b9ed" stroke="#34275d" stroke-width="8"/><path d="M248 185 Q220 135 190 120 M262 185 Q290 135 320 120" fill="none" stroke="#352a45" stroke-width="7"/><circle cx="165" cy="235" r="13" fill="#fff4c9" opacity=".9"/><circle cx="345" cy="235" r="13" fill="#fff4c9" opacity=".9"/><circle cx="205" cy="345" r="13" fill="#fff4c9" opacity=".9"/><circle cx="305" cy="345" r="13" fill="#fff4c9" opacity=".9"/>
+</g>
+</svg>
